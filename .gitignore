@@ -4,6 +4,7 @@
 ### Hexo ###
 db.json
 public/
+.deploy_git/
 
 ### macOS ###
 *.DS_Store

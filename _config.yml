@@ -79,7 +79,7 @@ theme: maupassant
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-    repo: https://github.com/caochun/blog-cvicse.git
-    branch: gh-pages
-    name: caochun
-    email: caochun@gmail.com
+  repo: https://github.com/caochun/blog-cvicse.git
+  branch: gh-pages
+  name: caochun
+  email: caochun@gmail.com
