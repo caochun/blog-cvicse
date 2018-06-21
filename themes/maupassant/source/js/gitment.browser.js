@@ -3360,7 +3360,7 @@ var Gitment = function () {
     this.useTheme(_default2.default);
 
     Object.assign(this, {
-      id: window.location.href,
+      id: window.location.pathname,
       title: window.document.title,
       link: window.location.href,
       desc: '',
