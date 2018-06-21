@@ -8,7 +8,7 @@ subtitle: 联合实验室工作日志
 description:
 keywords:
 author: Chun
-language:
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
@@ -41,7 +41,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace:
   
 # Home page setting
