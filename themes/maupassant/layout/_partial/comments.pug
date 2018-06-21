@@ -6,7 +6,6 @@ if theme.disqus
       var disqus_config = function () {
           this.page.url = '#{config.url}/#{page.path}';
           this.page.identifier = '#{page.path}';
-          this.page.title = '#{page.title}';
         };
     script(type='text/javascript' id='disqus-lazy-load-script').
       $.ajax({
