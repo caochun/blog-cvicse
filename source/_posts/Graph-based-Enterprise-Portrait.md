@@ -17,7 +17,7 @@ tags:
 Neo4j部署在一台云服务器上，操作系统为centOS 7。
 Neo4j需要java环境。
 
-```
+``` bash
 $ yum install java
 ```
 
@@ -37,7 +37,7 @@ root   hard    nofile  40000
 
 现在就可以正常启动Neo4j了
 
-```
+``` bash
 $ bin/neo4j start
 ```
 
@@ -46,7 +46,7 @@ $ bin/neo4j start
 因为当前环境服务器在NAT之后，无法直接访问，需要做端口映射，把Neo4j的7474端口暴露出来。
 也可以通过ssh建立socks代理，直接访问服务器ip。
 
-```
+``` bash
 $ ssh -D 8888 nju@210.28.133.11 -p 21084
 ```
 
@@ -59,7 +59,7 @@ $ ssh -D 8888 nju@210.28.133.11 -p 21084
 根据客户需求，提取出一个简单的模型验证技术路线。
 该模型从企业的角度出发，包含高管、法人等关系。
 
-![](/images/model.png)
+![](/images/graph/model.png)
 
 从Neo4j的角度来看，上述模型包含`法人`、`企业`、`产品`、`高管`等节点，包含`企业生产产品`等关系。
 
@@ -67,7 +67,7 @@ $ ssh -D 8888 nju@210.28.133.11 -p 21084
 
 根据上述模型，从原关系型数据库中，提取出相关的数据，具体过程如下
 
-```
+``` SQL
 select * from M1_JBCZZH.ZF_ENT_BASE_INFO ---企业基本信息165万
 select * from QYGW_USER.TABLE_QYGW_QYTZXX ---企业投资信息表  1248
 select * from M2_REPORT.VIEW_TAB_FILE_INDUSTRY_PRODUCT ---监督检查企业产品信息表 27534
@@ -93,7 +93,7 @@ select * from M1_JDJC.TAB_FILE_INDUSTRY_PRODUCT ---工业产品信息表
 
 以导入企业信息为例：
 
-```
+``` SQL
 LOAD CSV WITH HEADERS FROM "file:///imp/equip.txt" AS row
 CREATE (:Equip {
 equipId:row.SE_ID,
@@ -116,7 +116,7 @@ equipMakeCerNum:row.MAKE_CER_NUM
 
 在导入了节点之后，还需要加上相应的关系，例如加上设备关系：
 
-```
+``` SQL
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///imp/equip.csv" AS row
 MATCH (com:Company {companyJgdm:row.USE_UNITS_ID})
@@ -144,5 +144,5 @@ MERGE (com)-[pu:特种设备]->(equip);
 
 确定模型（有哪些点和边），本地和服务器端搭建环境熟悉Neo4j，准备数据（从关系型数据库中导出数据），导了部分数据（Cypher导入）
 
-![](/images/work1.jpeg)
-![](/images/work2.jpeg)
+![](/images/graph/work1.jpeg)
+![](/images/graph/work2.jpeg)
