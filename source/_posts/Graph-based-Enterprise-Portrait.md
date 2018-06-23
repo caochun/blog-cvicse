@@ -128,6 +128,7 @@ MERGE (com)-[pu:特种设备]->(equip);
 
 导入边很慢：
 导入企业（120w数据）与设备(116w)关系时非常慢，改用**neo4j-import**进行导入
+```bash
 ./bin/neo4j-import --into ./data/graph3.db --multiline-fields true --ignore-missing-nodes true --skip-duplicate-nodes true \
  --bad-tolerance 1000000 --ignore-empty-strings true --ignore-extra-columns true \
 --nodes:Company ./import/imp/company_header.csv,./import/imp/company.csv \
@@ -138,9 +139,12 @@ MERGE (com)-[pu:特种设备]->(equip);
 --relationships ./import/imp/r_employer_company_header.csv,./import/imp/r_employer_company.csv \
 --nodes:Product ./import/imp/product_header.csv,./import/imp/product.csv \
 --relationships ./import/imp/r_product_company_header.csv,./import/imp/r_product_company.csv
+```
 
 **注意事项：**
-导入过程如果报错【
+导入过程如果报错
+
+```bash
 Input error: ''
 Caused by:''
 java.lang.IllegalArgumentException: ''
@@ -156,37 +160,54 @@ java.lang.IllegalArgumentException: ''
 	at org.neo4j.unsafe.impl.batchimport.InputIteratorBatcherStep.nextBatchOrNull(InputIteratorBatcherStep.java:46)
 	at org.neo4j.unsafe.impl.batchimport.staging.PullingProducerStep.process(PullingProducerStep.java:43)
 	at org.neo4j.unsafe.impl.batchimport.staging.ProducerStep$1.run(ProducerStep.java:61)
-】，请检查header文件格式是否写错
+```
+
+请检查header文件格式是否写错
 
 #### Cypher查询
+
 **简单查询对象**
-<br>
-match(com:Company)
-where com.companyName='××股份有限公司'
-return p1
+
+``` SQL
+MATCH(com:Company)
+WHERE com.companyName='××股份有限公司'
+RETURN p1
+```
 
 **查询对象并查询该企业下的职工**
-<br>
-match(com:Company)
-where com.companyName='××股份有限公司'
-optional match p1=(com)-[r1:职工]->(emp:Employer)
-return p1
 
-**建立自然人投资关系**<br>
+``` SQL
+MATCH(com:Company)
+WHERE com.companyName='××股份有限公司'
+optional match p1=(com)-[r1:职工]->(emp:Employer)
+RETURN p1
+```
+
+**建立自然人投资关系**
+
+``` SQL
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///r_investor_company.csv" AS row
 MATCH (emp:Employer {employerName:row.investor})
 MATCH (com2:Company {ENT_ID:row.companyId})
 MERGE (emp)-[pu:自然人股东]->(com2);
+```
 
-**建立企业法人投资关系**<br>
+**建立企业法人投资关系**
+
+``` SQL
 load csv with headers from "file:///imp/legal_company.csv" as line
 match (emp:Employer{ZJHM: line.FDDBRHM})
 match (com:Company{companyJgdm: line.ZZJGDM})
 merge (emp) - [:企业法人] -> (com)
+```
 
-**查询XX公司1～6层的企业股东**<br>
-Match (start:Company{companyName:'XX公司'})-[:企业股东*1..6]-(end:Company) return end
+**查询XX公司1～6层的企业股东**
+
+``` SQL
+Match (start:Company{companyName:'XX公司'})-[:企业股东*1..6]-(end:Company) 
+return end
+```
 
 #### Spring Data Neo4j
 
