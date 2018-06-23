@@ -41,7 +41,8 @@ fatal: unable to auto-detect email address (got 'admin@T460P.(none)')```
 C:\blog-cvicse>git config --global user.email "yangjiyanfengyun@163.com"
 C:\blog-cvicse>git config --global user.name "vncnetcat"```
 ### 2.2.3 提交失败后再次提交本地仓库
-```C:\blog-cvicse>git commit -m "blog20180623"
+```
+C:\blog-cvicse>git commit -m "blog20180623"
 [master 43b0a17] blog20180623
  3 files changed, 69 insertions(+)
  create mode 100644 source/images/graph/companyRelationShips.png
