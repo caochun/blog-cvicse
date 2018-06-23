@@ -3,6 +3,8 @@ title: Git与GitHub入门教程
 date: 2018-06-23 19:42:58
 tags: 学习笔记
 author: 天天向上
+description: 天天向上同学记录了学习使用git和github的过程。
+
 ---
 
 ## 第一步：克隆远程仓库
