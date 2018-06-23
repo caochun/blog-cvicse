@@ -127,8 +127,66 @@ MERGE (com)-[pu:特种设备]->(equip);
 导入过程中出现的问题：数据中有`"\"`这样的数据，用LOAD CSV导入时会出错，可以改成`"\\"`。
 
 导入边很慢：
+导入企业（120w数据）与设备(116w)关系时非常慢，改用**neo4j-import**进行导入
+./bin/neo4j-import --into ./data/graph3.db --multiline-fields true --ignore-missing-nodes true --skip-duplicate-nodes true \
+ --bad-tolerance 1000000 --ignore-empty-strings true --ignore-extra-columns true \
+--nodes:Company ./import/imp/company_header.csv,./import/imp/company.csv \
+--nodes:Product ./import/imp/product_header.csv,./import/imp/product.csv \
+--nodes:Equip ./import/imp/equip_header.csv,./import/imp/equip.csv \
+--relationships ./import/imp/r_equip_company_header.csv,./import/imp/r_equip_company.csv \
+--nodes:Employer ./import/imp/employer_header.csv,./import/imp/employer.csv \
+--relationships ./import/imp/r_employer_company_header.csv,./import/imp/r_employer_company.csv \
+--nodes:Product ./import/imp/product_header.csv,./import/imp/product.csv \
+--relationships ./import/imp/r_product_company_header.csv,./import/imp/r_product_company.csv
+
+**注意事项：**
+导入过程如果报错【
+Input error: ''
+Caused by:''
+java.lang.IllegalArgumentException: ''
+	at org.neo4j.csv.reader.Extractors.valueOf(Extractors.java:155)
+	at org.neo4j.unsafe.impl.batchimport.input.csv.DataFactories$DefaultRelationshipFileHeaderParser.entry(DataFactories.java:365)
+	at org.neo4j.unsafe.impl.batchimport.input.csv.DataFactories$AbstractDefaultFileHeaderParser.create(DataFactories.java:175)
+	at org.neo4j.unsafe.impl.batchimport.input.csv.InputGroupsDeserializer.createNestedIterator(InputGroupsDeserializer.java:94)
+	at org.neo4j.unsafe.impl.batchimport.input.csv.InputGroupsDeserializer.createNestedIterator(InputGroupsDeserializer.java:38)
+	at org.neo4j.helpers.collection.NestingIterator.fetchNextOrNull(NestingIterator.java:68)
+	at org.neo4j.helpers.collection.PrefetchingIterator.peek(PrefetchingIterator.java:60)
+	at org.neo4j.helpers.collection.PrefetchingIterator.hasNext(PrefetchingIterator.java:46)
+	at org.neo4j.unsafe.impl.batchimport.staging.IteratorBatcherStep.nextBatchOrNull(IteratorBatcherStep.java:63)
+	at org.neo4j.unsafe.impl.batchimport.InputIteratorBatcherStep.nextBatchOrNull(InputIteratorBatcherStep.java:46)
+	at org.neo4j.unsafe.impl.batchimport.staging.PullingProducerStep.process(PullingProducerStep.java:43)
+	at org.neo4j.unsafe.impl.batchimport.staging.ProducerStep$1.run(ProducerStep.java:61)
+】，请检查header文件格式是否写错
 
 #### Cypher查询
+**简单查询对象**
+<br>
+match(com:Company)
+where com.companyName='××股份有限公司'
+return p1
+
+**查询对象并查询该企业下的职工**
+<br>
+match(com:Company)
+where com.companyName='××股份有限公司'
+optional match p1=(com)-[r1:职工]->(emp:Employer)
+return p1
+
+**建立自然人投资关系**<br>
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM "file:///r_investor_company.csv" AS row
+MATCH (emp:Employer {employerName:row.investor})
+MATCH (com2:Company {ENT_ID:row.companyId})
+MERGE (emp)-[pu:自然人股东]->(com2);
+
+**建立企业法人投资关系**<br>
+load csv with headers from "file:///imp/legal_company.csv" as line
+match (emp:Employer{ZJHM: line.FDDBRHM})
+match (com:Company{companyJgdm: line.ZZJGDM})
+merge (emp) - [:企业法人] -> (com)
+
+**查询XX公司1～6层的企业股东**<br>
+Match (start:Company{companyName:'XX公司'})-[:企业股东*1..6]-(end:Company) return end
 
 #### Spring Data Neo4j
 
@@ -146,3 +204,14 @@ MERGE (com)-[pu:特种设备]->(equip);
 
 ![](/images/graph/work1.jpeg)
 ![](/images/graph/work2.jpeg)
+
+#### 第二天
+
+使用Cypher导入数据后，建立点与边之间的关系，遇到性能问题，改用**neo4j-import**进行导入，解决建立关系慢的问题。导入数据后建立领用Cypher查询简单图谱
+![](/images/graph/work21.jpg)
+
+#### 第三天
+梳理企业投资关系数据，构建企业投资关系；学习Cypher，利用Cypher查询企业投资关系图谱
+![](/images/graph/companyRelationShips.png)
+
+学习Spring Data Neo4j，领用Java语言进行简单的Cypher操作
