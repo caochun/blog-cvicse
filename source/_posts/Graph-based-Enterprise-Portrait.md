@@ -1,7 +1,9 @@
 ---
 title: 基于图数据库的企业画像
 date: 2018-06-21 12:39:26
-tags:
+tags: 项目纪要
+description: 基于图数据库的企业画像项目基于开源Neo4j图数据库构建复杂企业用户画像和关系图谱，为质监等行业提供快速高效的企业信息发掘和其他业务支撑。
+
 ---
 
 基于图数据库的企业画像项目基于开源Neo4j图数据库构建复杂企业用户画像和关系图谱，为质监等行业提供快速高效的企业信息发掘和其他业务支撑。
@@ -140,9 +142,12 @@ MERGE (com)-[pu:特种设备]->(equip);
 --nodes:Product ./import/imp/product_header.csv,./import/imp/product.csv \
 --relationships ./import/imp/r_product_company_header.csv,./import/imp/r_product_company.csv
 ```
+
+
 **注意事项：**
-导入过程如果报错【
-```
+导入过程如果报错
+
+```bash
 Input error: ''
 Caused by:''
 java.lang.IllegalArgumentException: ''
@@ -159,25 +164,33 @@ java.lang.IllegalArgumentException: ''
 	at org.neo4j.unsafe.impl.batchimport.staging.PullingProducerStep.process(PullingProducerStep.java:43)
 	at org.neo4j.unsafe.impl.batchimport.staging.ProducerStep$1.run(ProducerStep.java:61)
 ```
-】，请检查header文件格式是否写错
+
+
+请检查header文件格式是否写错
 
 #### Cypher查询
+
 **简单查询对象**
+
+
+``` SQL
+MATCH(com:Company)
+WHERE com.companyName='××股份有限公司'
+RETURN p1
 ```
-match(com:Company)
-where com.companyName='××股份有限公司'
-return p1
-```
+
 **查询对象并查询该企业下的职工**
-```
-match(com:Company)
-where com.companyName='××股份有限公司'
+
+``` SQL
+MATCH(com:Company)
+WHERE com.companyName='××股份有限公司'
 optional match p1=(com)-[r1:职工]->(emp:Employer)
-return p1
+RETURN p1
 ```
 
 **建立自然人投资关系**
-```
+
+``` SQL
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///r_investor_company.csv" AS row
 MATCH (emp:Employer {employerName:row.investor})
@@ -185,8 +198,10 @@ MATCH (com2:Company {ENT_ID:row.companyId})
 MERGE (emp)-[pu:自然人股东]->(com2);
 ```
 
+
 **建立企业法人投资关系**
-```
+
+``` SQL
 load csv with headers from "file:///imp/legal_company.csv" as line
 match (emp:Employer{ZJHM: line.FDDBRHM})
 match (com:Company{companyJgdm: line.ZZJGDM})
@@ -194,8 +209,10 @@ merge (emp) - [:企业法人] -> (com)
 ```
 
 **查询XX公司1～6层的企业股东**
-```
-Match (start:Company{companyName:'XX公司'})-[:企业股东*1..6]-(end:Company) return end
+
+``` SQL
+Match (start:Company{companyName:'XX公司'})-[:企业股东*1..6]-(end:Company) 
+return end
 ```
 
 #### Spring Data Neo4j
