@@ -41,6 +41,7 @@ C:\blog-cvicse>git pull
 ## 第二步：修改文件并提交本地git仓库
 ### 添加修改文件
 ```
+
 C:\blog-cvicse>git add source/
 ```
 
@@ -54,6 +55,7 @@ C:\blog-cvicse>git commit -m "blog20180623"
 to set your account's default identity.
 Omit --global to set the identity only in this repository.
 fatal: unable to auto-detect email address (got 'admin@T460P.(none)')```
+
 
 #### 注意事项：未配置邮件及作者的需要配置
 
@@ -89,6 +91,7 @@ C:\blog-cvicse>git remote show origin
 ```
 
 默认提交的远程仓库是origin
+
 
 ### 添加fork后的分支远程仓库
 
