@@ -247,8 +247,11 @@ spring.data.neo4j.password=neo4j
 ![](/images/graph/neo4j-demo-movie.png)
 
 ### 开发实现与实验
-基于参考官方demo开发实现企业与职工关系的后端查询及前端展示
-后端代码包括Controller[CompanyController],Service[CompanyService],Repository[CompanyRepository],domain[Company(节点),Employer(节点),Employ(关系)]
+
+基于参考官方demo开发实现企业与职工关系的后端查询及前端展示。
+
+后端代码包括Controller [`CompanyController`], Service [`CompanyService`], Repository [`CompanyRepository`], Domain [`Company`(节点), `Employer`(节点), `Employ`(关系)]
+
 **CompanyController.java**
 ```java
     @GetMapping("/company")
@@ -267,6 +270,7 @@ spring.data.neo4j.password=neo4j
     }
 ```
 **CompanyService.java**
+
 ```java
     @Transactional(readOnly = true)
     public Company findByTitle(String title) {
@@ -322,7 +326,9 @@ spring.data.neo4j.password=neo4j
         return result;
     }
 ```
+
 **CompanyRepository.java**
+
 ```java
     Company findByCompanyName(@Param("companyName") String title);
 
@@ -386,7 +392,9 @@ public class Company {
     }
 }
 ```
+
 **Employer.java职工实体**
+
 ```java
 @NodeEntity
 public class Employer {
@@ -422,7 +430,9 @@ public class Employer {
     }
 }
 ```
+
 **Employ.java关系实体**
+
 ```java
 @RelationshipEntity(type = "职工")
 public class Employ {
@@ -458,7 +468,9 @@ public class Employ {
     }
 }
 ```
+
 **前端D3.js相关代码**
+
 ```javascript
 <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 <script src="d3.v3.min.js" type="text/javascript"></script>
@@ -541,7 +553,9 @@ public class Employ {
     });
 </script>
 ```
+
 **效果展示**
+
 ![](/images/graph/work32.png)
 
 ### 项目小结
@@ -564,7 +578,7 @@ public class Employ {
 梳理企业投资关系数据，构建企业投资关系；学习Cypher，利用Cypher查询企业投资关系图谱
 ![](/images/graph/companyRelationShips.png)
 
-学习Spring Data Neo4j，使用Spring Data Neo4j Java Api进行Node与RelationShips的查询操作
-将Cypher查询结果转换为D3.js可以使用的json format，使用d3.js进行关系与结点的展示
+学习Spring Data Neo4j，使用Spring Data Neo4j Java Api进行Node与RelationShips的查询操作将Cypher查询结果转换为D3.js可以使用的json format，使用d3.js进行关系与结点的展示
+
 ![](/images/graph/work3.jpg)
 ![](/images/graph/work33.jpg)
