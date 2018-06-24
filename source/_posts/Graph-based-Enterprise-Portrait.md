@@ -128,6 +128,7 @@ MERGE (com)-[pu:特种设备]->(equip);
 
 导入边很慢：
 导入企业（120w数据）与设备(116w)关系时非常慢，改用**neo4j-import**进行导入
+```bash
 ./bin/neo4j-import --into ./data/graph3.db --multiline-fields true --ignore-missing-nodes true --skip-duplicate-nodes true \
  --bad-tolerance 1000000 --ignore-empty-strings true --ignore-extra-columns true \
 --nodes:Company ./import/imp/company_header.csv,./import/imp/company.csv \
@@ -138,9 +139,10 @@ MERGE (com)-[pu:特种设备]->(equip);
 --relationships ./import/imp/r_employer_company_header.csv,./import/imp/r_employer_company.csv \
 --nodes:Product ./import/imp/product_header.csv,./import/imp/product.csv \
 --relationships ./import/imp/r_product_company_header.csv,./import/imp/r_product_company.csv
-
+```
 **注意事项：**
 导入过程如果报错【
+```
 Input error: ''
 Caused by:''
 java.lang.IllegalArgumentException: ''
@@ -156,43 +158,374 @@ java.lang.IllegalArgumentException: ''
 	at org.neo4j.unsafe.impl.batchimport.InputIteratorBatcherStep.nextBatchOrNull(InputIteratorBatcherStep.java:46)
 	at org.neo4j.unsafe.impl.batchimport.staging.PullingProducerStep.process(PullingProducerStep.java:43)
 	at org.neo4j.unsafe.impl.batchimport.staging.ProducerStep$1.run(ProducerStep.java:61)
+```
 】，请检查header文件格式是否写错
 
 #### Cypher查询
 **简单查询对象**
-<br>
+```
 match(com:Company)
 where com.companyName='××股份有限公司'
 return p1
-
+```
 **查询对象并查询该企业下的职工**
-<br>
+```
 match(com:Company)
 where com.companyName='××股份有限公司'
 optional match p1=(com)-[r1:职工]->(emp:Employer)
 return p1
+```
 
-**建立自然人投资关系**<br>
+**建立自然人投资关系**
+```
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///r_investor_company.csv" AS row
 MATCH (emp:Employer {employerName:row.investor})
 MATCH (com2:Company {ENT_ID:row.companyId})
 MERGE (emp)-[pu:自然人股东]->(com2);
+```
 
-**建立企业法人投资关系**<br>
+**建立企业法人投资关系**
+```
 load csv with headers from "file:///imp/legal_company.csv" as line
 match (emp:Employer{ZJHM: line.FDDBRHM})
 match (com:Company{companyJgdm: line.ZZJGDM})
 merge (emp) - [:企业法人] -> (com)
+```
 
-**查询XX公司1～6层的企业股东**<br>
+**查询XX公司1～6层的企业股东**
+```
 Match (start:Company{companyName:'XX公司'})-[:企业股东*1..6]-(end:Company) return end
+```
 
 #### Spring Data Neo4j
 
-#### 基于React的Neo4j前端
+##### 启动neo4j
+```
+neo4j console
+```
+
+##### 导入示例数据
+![](/images/graph/import-movie-data.png)
+
+##### 下载Neo4j官方示例
+```
+git clone https://github.com/neo4j-examples/movies-java-spring-data-neo4j.git
+```
+
+##### 导入eclipse工程
+![](/images/graph/import2eclipse.png)
+
+##### 修改neo4j配置文件 application.properties
+```
+spring.data.neo4j.uri=bolt://localhost
+spring.data.neo4j.username=neo4j
+spring.data.neo4j.password=neo4j
+```
+
+##### 运行SpringBoot示例工程
+![](/images/graph/runSpringBootApp.png)
+
+##### 运行SpringBoot示例工程展示
+![](/images/graph/neo4j-demo-movie.png)
 
 ### 开发实现与实验
+基于参考官方demo开发实现企业与职工关系的后端查询及前端展示
+后端代码包括Controller[CompanyController],Service[CompanyService],Repository[CompanyRepository],domain[Company(节点),Employer(节点),Employ(关系)]
+**CompanyController.java**
+```java
+    @GetMapping("/company")
+    public Company findByTitle(@RequestParam String companyName) {
+        return companyService.findByTitle(companyName);
+    }
+
+    @GetMapping("/companies")
+    public Collection<Company> findByTitleLike(@RequestParam String companyName) {
+        return companyService.findByTitleLike(companyName);
+    }
+
+    @GetMapping("/graph")
+    public Map<String, Object> graph(@RequestParam(value = "limit", required = false) Integer limit) {
+        return companyService.graph(limit == null ? 100 : limit);
+    }
+```
+**CompanyService.java**
+```java
+    @Transactional(readOnly = true)
+    public Company findByTitle(String title) {
+        Company result = companyRepository.findByCompanyName(title);
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public Collection<Company> findByTitleLike(String title) {
+        Collection<Company> result = companyRepository.findByCompanyNameLike(title);
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> graph(int limit) {
+        Collection<Company> result = companyRepository.graph(limit);
+        return toD3Format(result);
+    }
+    
+    /**
+     * 将Cypher查询结果转换为D3可用的Json格式
+     * 
+     * @param companies
+     * @return
+     */
+    private Map<String, Object> toD3Format(Collection<Company> companies) {
+        List<Map<String, Object>> nodes = new ArrayList<>();
+        List<Map<String, Object>> rels = new ArrayList<>();
+        int i = 0;
+        Iterator<Company> result = companies.iterator();
+        while (result.hasNext()) {
+            Company company = result.next();
+            nodes.add(map("companyName", company.getName(), "label", "company"));
+            int target = i;
+            i++;
+            for (Employ employ : company.getEmploy()) {
+                Map<String, Object> emp = map("companyName", employ.getEmployer().getName(), "label", "employer");
+                int source = nodes.indexOf(emp);
+                if (source == -1) {
+                    nodes.add(emp);
+                    source = i++;
+                }
+                rels.add(map("source", source, "target", target));
+            }
+        }
+        return map("nodes", nodes, "links", rels);
+    }
+
+    private Map<String, Object> map(String key1, Object value1, String key2, Object value2) {
+        Map<String, Object> result = new HashMap<String, Object>(2);
+        result.put(key1, value1);
+        result.put(key2, value2);
+        return result;
+    }
+```
+**CompanyRepository.java**
+```java
+    Company findByCompanyName(@Param("companyName") String title);
+
+    Collection<Company> findByCompanyNameLike(@Param("companyName") String title);
+
+    @Query("MATCH (m:Company)-[r:职工]->(a:Employer) RETURN m,r,a LIMIT {limit}")
+    Collection<Company> graph(@Param("limit") int limit);
+```
+**Company.java企业实体**
+```java
+@NodeEntity
+public class Company {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String companyName;
+    private String companyJgdm;
+    private String ACTUAL_ADDRESS;
+
+
+    @JsonIgnoreProperties("company")
+    @Relationship(type = "职工", direction = Relationship.OUTGOING)
+    private List<Employ> employs = new ArrayList<>();
+
+
+    public Company() {
+    }
+
+    public Company(String name, String jgdm, String address) {
+        this.companyName = name;
+        this.companyJgdm = jgdm;
+        this.ACTUAL_ADDRESS = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return companyName;
+    }
+
+    public String getJgdm() {
+        return companyJgdm;
+    }
+
+    public String getAddress() {
+        return ACTUAL_ADDRESS;
+    }
+
+    public List<Employ> getEmploy() {
+        return employs;
+    }
+
+    public void addEmploy(Employ emp) {
+        if (this.employs == null) {
+            this.employs = new ArrayList<>();
+        }
+        this.employs.add(emp);
+    }
+}
+```
+**Employer.java职工实体**
+```java
+@NodeEntity
+public class Employer {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String employerName;
+    private String ZJHM;
+
+    @JsonIgnoreProperties("employer")
+    @Relationship(type = "职工")
+    private List<Employ> emps;
+
+    public Employer() {
+    }
+
+    public Employer(String name, String zjhm) {
+        this.employerName = name;
+        this.ZJHM = zjhm;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return employerName;
+    }
+
+    public String getZjhm() {
+        return ZJHM;
+    }
+}
+```
+**Employ.java关系实体**
+```java
+@RelationshipEntity(type = "职工")
+public class Employ {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @StartNode
+    private Company company;
+
+    @EndNode
+    private Employer emp;
+
+    public Employ() {
+    }
+
+    public Employ(Company company, Employer emp) {
+        this.company = company;
+        this.emp = emp;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public Employer getEmployer() {
+        return emp;
+    }
+}
+```
+**前端D3.js相关代码**
+```javascript
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+<script src="d3.v3.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        function showCompany(companyName) {
+            $.get("/company?companyName=" + encodeURIComponent(companyName), // todo fix paramter in SDN
+                    function (data) {
+                        if (!data ) return; //  || !data["_embedded"].movies) return;
+                        var company = data; // ["_embedded"].movies[0];
+                        $("#title").text(company.name);
+                        var $list = $("#crew").empty();
+
+                        company.employ.forEach(function (cast) {
+                            $list.append($("<li>" + cast.employer.zjhm + ", " + cast.employer.name + "</li>"));
+                        });
+                    }, "json");
+            return false;
+        }
+        function search() {
+            var query=$("#search").find("input[name=search]").val();
+            $.get("/companies?companyName=*" + encodeURIComponent(query) + "*",
+                    function (data) {
+                        var t = $("table#results tbody").empty();
+                        if (!data) return;
+                        data.forEach(function (company) {
+                            $("<tr><td class='company'>" + company.name + "</td><td>" + company.jgdm + "</td><td>" + company.address + "</td></tr>").appendTo(t)
+                                    .click(function() { showCompany($(this).find("td.Company").text());})
+                        });
+                        showCompany(data[0].name);
+                    }, "json");
+            return false;
+        }
+
+        $("#search").submit(search);
+        search();
+    })
+</script>
+
+<script type="text/javascript">
+    var width = 800, height = 800;
+
+    var force = d3.layout.force()
+            .charge(-200).linkDistance(30).size([width, height]);
+
+    var svg = d3.select("#graph").append("svg")
+            .attr("width", "100%").attr("height", "100%")
+            .attr("pointer-events", "all");
+
+    d3.json("/graph", function(error, graph) {
+        if (error) return;
+
+        force.nodes(graph.nodes).links(graph.links).start();
+
+        var link = svg.selectAll(".link")
+                .data(graph.links).enter()
+                .append("line").attr("class", "link");
+
+        var node = svg.selectAll(".node")
+                .data(graph.nodes).enter()
+                .append("circle")
+                .attr("class", function (d) { return "node "+d.label })
+                .attr("r", 10)
+                .call(force.drag);
+
+        // html title attribute
+        node.append("name")
+                .text(function (d) { return d.name; })
+
+        // force feed algo ticks
+        force.on("tick", function() {
+            link.attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
+
+            node.attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+        });
+    });
+</script>
+```
+**效果展示**
+![](/images/graph/work32.png)
 
 ### 项目小结
 
@@ -214,4 +547,7 @@ Match (start:Company{companyName:'XX公司'})-[:企业股东*1..6]-(end:Company)
 梳理企业投资关系数据，构建企业投资关系；学习Cypher，利用Cypher查询企业投资关系图谱
 ![](/images/graph/companyRelationShips.png)
 
-学习Spring Data Neo4j，领用Java语言进行简单的Cypher操作
+学习Spring Data Neo4j，使用Spring Data Neo4j Java Api进行Node与RelationShips的查询操作
+将Cypher查询结果转换为D3.js可以使用的json format，使用d3.js进行关系与结点的展示
+![](/images/graph/work3.jpg)
+![](/images/graph/work33.jpg)
