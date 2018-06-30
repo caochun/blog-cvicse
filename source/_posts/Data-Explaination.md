@@ -1,16 +1,19 @@
 ---
-title: 监督检查、抽查数据说明文档
+title: 质监数据说明
 date: 2018-06-26 14:39:35
 tags: 项目纪要
-description: 监督检查、抽查数据说明文档
+description: 质监数据说明文档
 ---
-## 数据存储位置
+
+## 监督检查、抽查数据说明
+
+### 数据存储位置
 
 ```
 /home/nju/neo4j/import/imp_new/check.csv
 ```
 
-## 字段说明
+### 字段说明
 
 | 字段名  | 说明 |
 | ------------- | ------------- |
@@ -101,16 +104,19 @@ description: 监督检查、抽查数据说明文档
 | RZRKQK | 认证认可情况 |
 | ZXBZQK | 执行标准/技术文件情况 |
 
+
 ## 企业数据说明
 
 ### 存储位置
 
-##### /home/nju/neo4j/import/imp_new/company.csv
+```
+/home/nju/neo4j/import/imp_new/company.csv
+```
 
-# 字段说明
+### 字段说明
 
 | 字段      | 说明    |  
-| --------   | :-----:  | 
+| --------   | -----  | 
 |ZZJGDM      	|机构代码|  
 |DWMC    	|单位名称  |
 |JGLX      	|机构类型（暂未找到对应字典）      |  	  
