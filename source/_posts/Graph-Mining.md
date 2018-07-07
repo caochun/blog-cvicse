@@ -1,28 +1,34 @@
-# 项目说明
+---
+title: 基于机器学习的质监预测技术
+date: 2018-7-7 12:39:26
+tags: 项目纪要
+description: 根据已有部分抽检产品信息和检测结果，根据他们之间的关系，包括产品所属公司，公司之间的投资关系，人员关系等，构建模型，对所有未检测产品进行分类，预测它们可能的检测结果。
 
+---
 ## 介绍
 
 现有一批质监局数据，导出自某数据库，包含的基本关系有：
 
-``` c
-企业基本信息165万
-企业投资信息表  1248
-监督检查企业产品信息表 27534
-产品基本信息 21955
-企业产品信息关联表 7379
-企业标准/认证/资质/荣誉信息关联表  1419
-企业分支机构基本信息关联表   20
-企业股东信息  426
-企业高管信息   699
-企业官网信息关联表  672
-特种设备基本信息 1162098
-特种设备作业人员情况 57684
-特种设备作业人员信息 2873
-人员基本信息表 702573
-```
+|    数据    | 数量 |
+|  -- |  -- |
+| 企业基本信息| 165万 | 
+| 企业投资信息表 |  1248 | 
+| 监督检查企业产品信息表|  27534 | 
+| 产品基本信息 | 21955| 
+| 企业产品信息关联表 | 7379| 
+| 企业标准/认证/资质/荣誉信息关联表  | 1419 | 
+| 企业分支机构基本信息关联表  |  20| 
+| 企业股东信息 |  426 | 
+| 企业高管信息  |  699 | 
+| 企业官网信息关联表 |   672 | 
+| 特种设备基本信息 | 1162098 | 
+| 特种设备作业人员情况 |   57684 | 
+| 特种设备作业人员信息 |  2873 | 
+| 人员基本信息表 | 702573 | 
 
 根据以上主要关系，可以构建包含企业、产品、法人、投资关系等的图模型，如下所示。主要包括，企业所生产的产品、企业股东、法人等。
-![rel](pics/rel2.png)
+
+![rel](/images/rel2.png)
 
 背景：质监局会对企业产品进行质量检测，反馈合格或者不合格，另外还有对整个公司的检测结果（这里并不确定是怎么来的。
 
@@ -42,27 +48,24 @@
 
 ### metapath2vector
 
-Dong Y, Chawla N V, Swami A. metapath2vec: Scalable representation learning for heterogeneous networks[C]//Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. ACM, 2017: 135-144.
+> Dong Y, Chawla N V, Swami A. [metapath2vec: Scalable representation learning for heterogeneous networks](https://dl.acm.org/citation.cfm?id=3098036). Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. ACM, 2017: 135-144.
 
 该工作是对异质网络（即包含多种类型的节点和边的网络）中的每个节点学习生成较低维度空间的嵌入表达（embedding）。根据得到的嵌入表达，可以进行基本的分类、聚类等任务。
 
-不符合之处：
-
-- 该工作属于无监督学习，没有考虑已有的节点信息，即在生成每个节点的低维嵌入时没有考虑已有的分类信息。
+不符合之处：该工作属于无监督学习，没有考虑已有的节点信息，即在生成每个节点的低维嵌入时没有考虑已有的分类信息。
 
 ### Semi-supervised classification with graph convolutional networks
 
-Kipf T N, Welling M. Semi-supervised classification with graph convolutional networks[J]. arXiv preprint arXiv:1609.02907, 2016.
+> Kipf T N, Welling M. [Semi-supervised classification with graph convolutional networks](https://arxiv.org/abs/1609.02907). arXiv preprint arXiv:1609.02907, 2016.
+
 
 改工作是在普通同质图（相对前面异质图而言，即没有各种节点或者边的类型，只有每个点之间相互连接的信息）上使用GCN（graph convolutional networks）方法做的半监督分类问题。
 
-不符合之处：
-
-- 该工作是对普通图做的半监督学习，如果直接使用则会丢弃很多已有信息。
+不符合之处：该工作是对普通图做的半监督学习，如果直接使用则会丢弃很多已有信息。
 
 ### Inductive Representation Learning on Large Graphs
 
-Hamilton W, Ying Z, Leskovec J. Inductive representation learning on large graphs[C]//Advances in Neural Information Processing Systems. 2017: 1024-1034.
+> Hamilton W, Ying Z, Leskovec J. [Inductive representation learning on large graphs](https://arxiv.org/abs/1706.02216). Advances in Neural Information Processing Systems. 2017: 1024-1034.
 
 这份工作还没细看，有待研究，另外结合前两篇的工作，可以完成本次要做的任务。
 
