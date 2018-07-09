@@ -42,43 +42,55 @@ description: 根据已有部分抽检产品信息和检测结果，根据他们�
 
 任务抽象：
 
-- 属于半监督的异质图上的节点分类问题。
+- 属于异质图上的半监督学习问题，监督目标为部分节点的类别。
+- 亦可将问题拆分成两个步骤，分别是无监督的特征表示学习，加上监督的分类问题（目前尚无直接可用的带节点属性的异质网络上的节点特征学习方法）。
 
 ## 现有工作和算法
 
-### metapath2vector
+### PTE
 
-> Dong Y, Chawla N V, Swami A. [metapath2vec: Scalable representation learning for heterogeneous networks](https://dl.acm.org/citation.cfm?id=3098036). Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. ACM, 2017: 135-144.
+> Jian Tang, Meng Qu, Qiaozhu Mei. [PTE: Predictive Text Embedding through Large-scale Heterogeneous Text Networks](https://arxiv.org/pdf/1508.00200.pdf). KDD 2015.
 
-该工作是对异质网络（即包含多种类型的节点和边的网络）中的每个节点学习生成较低维度空间的嵌入表达（embedding）。根据得到的嵌入表达，可以进行基本的分类、聚类等任务。
+该工作是对异质网络（即包含多种类型的节点和边的网络）中的每个节点学习生成较低维度空间的嵌入表达（embedding）。根据得到的嵌入表达，可以进行基本的分类、聚类等任务。主要方法是将异质网络拆分成多个同质网络进行处理。
 
-不符合之处：该工作属于无监督学习，没有考虑已有的节点信息，即在生成每个节点的低维嵌入时没有考虑已有的分类信息。
+不符合之处：该工作未使用节点属性。另外，该工作适用的前提是异质网络可以拆分成多个同质网络（给定两个点，他们之间的边只有一种类型）。
 
-### Semi-supervised classification with graph convolutional networks
+### metapath2vec
 
-> Kipf T N, Welling M. [Semi-supervised classification with graph convolutional networks](https://arxiv.org/abs/1609.02907). arXiv preprint arXiv:1609.02907, 2016.
+> Dong Y, Chawla N V, Swami A. [metapath2vec: Scalable representation learning for heterogeneous networks](https://dl.acm.org/citation.cfm?id=3098036). KDD 2017.
 
+该工作是对异质网络中的每个节点学习生成较低维度空间的嵌入表达。根据得到的嵌入表达，可以进行基本的分类、聚类等任务。
 
-改工作是在普通同质图（相对前面异质图而言，即没有各种节点或者边的类型，只有每个点之间相互连接的信息）上使用GCN（graph convolutional networks）方法做的半监督分类问题。
+不符合之处：第一，该工作属于无监督学习，暂未使用监督信息；第二，该工作暂未使用节点属性。
 
-不符合之处：该工作是对普通图做的半监督学习，如果直接使用则会丢弃很多已有信息。
+### GCN
 
-### Inductive Representation Learning on Large Graphs
+> Kipf T N, Welling M. [Semi-supervised classification with graph convolutional networks](https://arxiv.org/abs/1609.02907). ICLR 2017.
 
-> Hamilton W, Ying Z, Leskovec J. [Inductive representation learning on large graphs](https://arxiv.org/abs/1706.02216). Advances in Neural Information Processing Systems. 2017: 1024-1034.
+改工作是在普通同质网络（相对前面异质网络而言，即网络的节点和边只有一种类型）上使用GCN（graph convolutional networks）方法做的半监督分类问题。
 
-这份工作还没细看，有待研究，另外结合前两篇的工作，可以完成本次要做的任务。
+不符合之处：该工作处理同质网络，忽略了异质网络的信息。
+
+### GraphSAGE
+
+> Hamilton W, Ying Z, Leskovec J. [Inductive representation learning on large graphs](https://arxiv.org/abs/1706.02216). NIPS 2017.
+
+该工作是基于上一篇的改良的无监督学习版本。
 
 ## 方法
 
-姚老师给出了两种解决方法：
+姚老师给出了如下解决方法：
 
-1. 先使用metapath2vector得到已有异质图的低维嵌入表达，然后根据该embedding重构生成同质图，之后就可以使用GCN的方法进行半监督的分类学习。这个方法较为简单，但可能重构出的新图会损失部分信息，新图的结构还在考虑。
+1. 直接将异质网络简化成同质网络，然后使用GCN。GCN天生可以处理节点属性，并且是半监督学习方法，直接可以用于当前任务。
 
-2. 结合两份工作，将metapath2vector的方法结合进GCN中，但怎么结合我还不明白，有关GCN的具体方法、优化目标还在研究之中。这种方法可能需要修改现有的部分源代码，工作量可能较大。
+2. 将异质网络拆分成同质网络（可能损失部分信息），然后用PTE学习节点表达。然后将PTE学习的节点表达与节点属性拼接起来做监督学习。
+
+3. 使用metapath2vec在异质网络上得到节点表达。然后将metapath2vec学习的节点表达与节点属性拼接起来做监督学习。
+
+4. 结合上述工作，开发新的带节点属性的异质网络上的节点特征学习方法。（这种方法可能需要修改现有的方法与代码，工作量与创新性要求较大。）
 
 ## 计划
 
-1. 需要将已有数据进行过滤，去掉关系中不需要的属性；并转化成图的数据结构。
-2. 继续研究GCN的方法，尝试进行结合。
-3. 跑一些metapath2vector和GCN的实验。
+1. 仔细分析已有数据，将已有数据进行过滤，去掉关系中不需要的属性；并转化成图的数据结构。
+2. 在理解数据的基础上，进行异质网络到同质网路的简化，或异质网络到同质网络的拆分。
+3. 跑一些GCN、PTE、metapath2vect的实验（代码均公开）。
