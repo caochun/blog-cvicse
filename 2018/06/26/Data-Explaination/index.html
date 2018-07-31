@@ -1,0 +1,1574 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>质监数据说明 | NJUCS-CVICSE</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','UA-121783408-3','auto');ga('send','pageview');
+</script></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">质监数据说明</h1><a id="logo" href="/.">NJUCS-CVICSE</a><p class="description">联合实验室工作日志</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">质监数据说明</h1><div class="post-meta">Jun 26, 2018</div><div class="post-content"><h2 id="监督检查、抽查数据说明"><a href="#监督检查、抽查数据说明" class="headerlink" title="监督检查、抽查数据说明"></a>监督检查、抽查数据说明</h2><h3 id="数据存储位置"><a href="#数据存储位置" class="headerlink" title="数据存储位置"></a>数据存储位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/nju/neo4j/import/imp_new/check.csv</span><br></pre></td></tr></table></figure>
+<h3 id="字段说明"><a href="#字段说明" class="headerlink" title="字段说明"></a>字段说明</h3><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>监督检查表主键</td>
+</tr>
+<tr>
+<td>PLANTYPE</td>
+<td>计划类型,分为国家级监督抽查、省级监督抽查、市级监督抽查、县级监督抽查、其它监督抽查、省级专项监督抽查、市级专项监督抽查、定期监督抽查、定检</td>
+</tr>
+<tr>
+<td>VERIFYORG</td>
+<td>承检机构</td>
+</tr>
+<tr>
+<td>ORGNAME</td>
+<td>企业名称</td>
+</tr>
+<tr>
+<td>PRODADDR</td>
+<td>生产地址</td>
+</tr>
+<tr>
+<td>REGION</td>
+<td>行政区划内容</td>
+</tr>
+<tr>
+<td>SCALECONTENT</td>
+<td>企业规模描述</td>
+</tr>
+<tr>
+<td>ECONOMYTYPECONTENT</td>
+<td>经济类型内容</td>
+</tr>
+<tr>
+<td>CONMAN</td>
+<td>联系人</td>
+</tr>
+<tr>
+<td>CONTEL</td>
+<td>联系电话</td>
+</tr>
+<tr>
+<td>SINGLEMAN</td>
+<td>法人代表</td>
+</tr>
+<tr>
+<td>ORGANNO</td>
+<td>组织机构代码</td>
+</tr>
+<tr>
+<td>PRODSTATENAME</td>
+<td>现场生产状态文字</td>
+</tr>
+<tr>
+<td>ISREFUSE</td>
+<td>企业是否拒检1是0否</td>
+</tr>
+<tr>
+<td>PRODNAME</td>
+<td>产品具体名称</td>
+</tr>
+<tr>
+<td>MODEL</td>
+<td>规格型号</td>
+</tr>
+<tr>
+<td>PRODUCTTYPE</td>
+<td>产品类别</td>
+</tr>
+<tr>
+<td>STANDARDNAME</td>
+<td>检验依据标准(标准编号和名称)</td>
+</tr>
+<tr>
+<td>PTIDS</td>
+<td>标准产品分类</td>
+</tr>
+<tr>
+<td>BATCHNUM</td>
+<td>生产日期或批号</td>
+</tr>
+<tr>
+<td>SALESVOLUME</td>
+<td>销售额（万元）</td>
+</tr>
+<tr>
+<td>WORKERNUM</td>
+<td>人数</td>
+</tr>
+<tr>
+<td>YEARTOTALOUTPUT</td>
+<td>产值（万元）</td>
+</tr>
+<tr>
+<td>PRODAMOUNT</td>
+<td>产量</td>
+</tr>
+<tr>
+<td>REPORTNO</td>
+<td>报告编号</td>
+</tr>
+<tr>
+<td>ENTITYISPASS</td>
+<td>实物质量判定(1合格0不合格)</td>
+</tr>
+<tr>
+<td>LABELISPASS</td>
+<td>标签判定(1合格0不合格)</td>
+</tr>
+<tr>
+<td>ISPASS</td>
+<td>综合判定(1合格0不合格)</td>
+</tr>
+<tr>
+<td>REMARK</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>STATE</td>
+<td>报告状态(0编辑中、1提交2退回)</td>
+</tr>
+<tr>
+<td>RECHECKORG</td>
+<td>复查检验机构名称</td>
+</tr>
+<tr>
+<td>RECHECKORGCODE</td>
+<td>后处理单位行政区划号</td>
+</tr>
+<tr>
+<td>ISRECHECK</td>
+<td>是否已整改</td>
+</tr>
+<tr>
+<td>ISPUNISH</td>
+<td>是否已处罚</td>
+</tr>
+<tr>
+<td>ISTEST</td>
+<td>是否移送检验</td>
+</tr>
+<tr>
+<td>AFTERDATE</td>
+<td>后处理截止时间</td>
+</tr>
+<tr>
+<td>RECHECKDATE</td>
+<td>整改要求完成时间</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>邮政编码</td>
+</tr>
+<tr>
+<td>BUSLICENO</td>
+<td>营业执照注册号</td>
+</tr>
+<tr>
+<td>CERTNO</td>
+<td>许可证编号</td>
+</tr>
+<tr>
+<td>CCCCERTNO</td>
+<td>CCC编号</td>
+</tr>
+<tr>
+<td>ISCANCEL</td>
+<td>是否作废（1作废，0不作废）</td>
+</tr>
+<tr>
+<td>ISFUJIAN</td>
+<td>是否复检（1是，0否）</td>
+</tr>
+<tr>
+<td>PLANCLASS</td>
+<td>计划类别 1监督检查,2监督检验</td>
+</tr>
+<tr>
+<td>PLANMAKORG</td>
+<td>计划编制单位</td>
+</tr>
+<tr>
+<td>ZXSTANDARDCODE</td>
+<td>执行标准编号</td>
+</tr>
+<tr>
+<td>ZXSTANDARDNAME</td>
+<td>执行标准名称</td>
+</tr>
+<tr>
+<td>ISHISTORY</td>
+<td>是否历史数据(1是0否)</td>
+</tr>
+<tr>
+<td>SUBTIME</td>
+<td>提交时间</td>
+</tr>
+<tr>
+<td>ISIMPORTANT</td>
+<td>是否严重不合格</td>
+</tr>
+<tr>
+<td>RZXCODE</td>
+<td>认证项</td>
+</tr>
+<tr>
+<td>QYRYCODE</td>
+<td>企业荣誉</td>
+</tr>
+<tr>
+<td>CYLYCODE</td>
+<td>抽样领域</td>
+</tr>
+<tr>
+<td>RELATIONID</td>
+<td>与复检相关连的报告</td>
+</tr>
+<tr>
+<td>PTIDSNAME</td>
+<td>标准产品分类名称</td>
+</tr>
+<tr>
+<td>ADDR</td>
+<td>单位地址</td>
+</tr>
+<tr>
+<td>PLANNAME</td>
+<td>计划编号</td>
+</tr>
+<tr>
+<td>JYXS</td>
+<td>检验项数</td>
+</tr>
+<tr>
+<td>UNPASSXS</td>
+<td>不合格项数</td>
+</tr>
+<tr>
+<td>UNPASSXM</td>
+<td>不合格项目</td>
+</tr>
+<tr>
+<td>CHECKOKDATE</td>
+<td>实际整改完成时间</td>
+</tr>
+<tr>
+<td>ZGFCDATE</td>
+<td>责令整改通知书发出日期</td>
+</tr>
+<tr>
+<td>ZGTJDATE</td>
+<td>企业提交整改报告日期</td>
+</tr>
+<tr>
+<td>RECHECKSQDATE</td>
+<td>复查申请日期</td>
+</tr>
+<tr>
+<td>RECHECKISPASS</td>
+<td>复查是否合格</td>
+</tr>
+<tr>
+<td>LOGREMARK</td>
+<td>后处理移送的备注，然后存入流转历史表的remark</td>
+</tr>
+<tr>
+<td>CYDATE</td>
+<td>抽样日期</td>
+</tr>
+<tr>
+<td>ZGREMARK</td>
+<td>整改信息的备注</td>
+</tr>
+<tr>
+<td>WFHCL</td>
+<td>无法进行后处理</td>
+</tr>
+<tr>
+<td>RECEIVEDATE</td>
+<td>接收移送时间</td>
+</tr>
+<tr>
+<td>ISYUETAN</td>
+<td>是否约谈</td>
+</tr>
+<tr>
+<td>ISLURU</td>
+<td>是否人工录入的记录</td>
+</tr>
+<tr>
+<td>GRADE</td>
+<td>等级</td>
+</tr>
+<tr>
+<td>SAMPLING_POINT</td>
+<td>标准分类</td>
+</tr>
+<tr>
+<td>SOURCEDEPT</td>
+<td>来源部门</td>
+</tr>
+<tr>
+<td>BATCHNO</td>
+<td>检验批号</td>
+</tr>
+<tr>
+<td>XIANGXIID</td>
+<td>国抽表产品分类代码</td>
+</tr>
+<tr>
+<td>GCEJID</td>
+<td>一级产品分类代码</td>
+</tr>
+<tr>
+<td>GCYJID</td>
+<td>二级产品分类代码</td>
+</tr>
+<tr>
+<td>RETURNOPINION</td>
+<td>退回意见</td>
+</tr>
+<tr>
+<td>MANNAME</td>
+<td>处理人</td>
+</tr>
+<tr>
+<td>BRAND</td>
+<td>商标</td>
+</tr>
+<tr>
+<td>BACKREASON</td>
+<td>建议，原因</td>
+</tr>
+<tr>
+<td>BACKMANNAME</td>
+<td>处理人</td>
+</tr>
+<tr>
+<td>RZRKQK</td>
+<td>认证认可情况</td>
+</tr>
+<tr>
+<td>ZXBZQK</td>
+<td>执行标准/技术文件情况</td>
+</tr>
+</tbody>
+</table>
+<h2 id="企业数据说明"><a href="#企业数据说明" class="headerlink" title="企业数据说明"></a>企业数据说明</h2><h3 id="存储位置"><a href="#存储位置" class="headerlink" title="存储位置"></a>存储位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/nju/neo4j/import/imp_new/company.csv</span><br></pre></td></tr></table></figure>
+<h4 id="字段说明-1"><a href="#字段说明-1" class="headerlink" title="字段说明"></a>字段说明</h4><table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZZJGDM</td>
+<td style="text-align:center">机构代码</td>
+</tr>
+<tr>
+<td>DWMC</td>
+<td style="text-align:center">单位名称</td>
+</tr>
+<tr>
+<td>JGLX</td>
+<td style="text-align:center">机构类型（暂未找到对应字典）</td>
+</tr>
+<tr>
+<td>FDDBR</td>
+<td style="text-align:center">法定代表人</td>
+</tr>
+<tr>
+<td>ZJLX</td>
+<td style="text-align:center">证件类型（身份证号）</td>
+</tr>
+<tr>
+<td>FDDBRHM</td>
+<td style="text-align:center">法定代表人证件号码</td>
+</tr>
+<tr>
+<td>JYFW</td>
+<td style="text-align:center">经营范围</td>
+</tr>
+<tr>
+<td>HY</td>
+<td style="text-align:center">行业名称</td>
+</tr>
+<tr>
+<td>JJLX</td>
+<td style="text-align:center">经济类型</td>
+</tr>
+<tr>
+<td>SHRQ</td>
+<td style="text-align:center">审核日期</td>
+</tr>
+<tr>
+<td>ZGDM</td>
+<td style="text-align:center">主管部门代码</td>
+</tr>
+<tr>
+<td>PZJGMC</td>
+<td style="text-align:center">批准机构名称</td>
+</tr>
+<tr>
+<td>XZQH</td>
+<td style="text-align:center">行政区划</td>
+</tr>
+<tr>
+<td>ZCDZ</td>
+<td style="text-align:center">注册地址</td>
+</tr>
+<tr>
+<td>YZBM</td>
+<td style="text-align:center">邮政编码</td>
+</tr>
+<tr>
+<td>DH</td>
+<td style="text-align:center">电话号码</td>
+</tr>
+<tr>
+<td>SSZB</td>
+<td style="text-align:center">实收资本</td>
+</tr>
+<tr>
+<td>BZRQ</td>
+<td style="text-align:center">办证日期</td>
+</tr>
+<tr>
+<td>ZFRQ</td>
+<td style="text-align:center">作废日期</td>
+</tr>
+<tr>
+<td>BZJG</td>
+<td style="text-align:center">办证机构</td>
+</tr>
+<tr>
+<td>ZYCP</td>
+<td style="text-align:center">主要产品</td>
+</tr>
+<tr>
+<td>JBR</td>
+<td style="text-align:center">经办人</td>
+</tr>
+<tr>
+<td>CK</td>
+<td style="text-align:center">是否出口</td>
+</tr>
+<tr>
+<td>ZCZJ</td>
+<td style="text-align:center">注册资金</td>
+</tr>
+<tr>
+<td>HBZL</td>
+<td style="text-align:center">货币种类</td>
+</tr>
+<tr>
+<td>WFTZGB</td>
+<td style="text-align:center">投资国别或地区代码</td>
+</tr>
+<tr>
+<td>ZGRS</td>
+<td style="text-align:center">职工人数</td>
+</tr>
+<tr>
+<td>CLRQ</td>
+<td style="text-align:center">成立日期</td>
+</tr>
+<tr>
+<td>ZYGD</td>
+<td style="text-align:center">主要股东</td>
+</tr>
+<tr>
+<td>PZWH</td>
+<td style="text-align:center">批准文号</td>
+</tr>
+<tr>
+<td>BGRQ</td>
+<td style="text-align:center">变更日期</td>
+</tr>
+<tr>
+<td>JYYZBM</td>
+<td style="text-align:center">经营邮政编码</td>
+</tr>
+<tr>
+<td>NJRQ</td>
+<td style="text-align:center">年检日期</td>
+</tr>
+<tr>
+<td>GK</td>
+<td style="text-align:center">是否公开</td>
+</tr>
+<tr>
+<td>NJQX</td>
+<td style="text-align:center">年检期限</td>
+</tr>
+<tr>
+<td>EMAIL</td>
+<td style="text-align:center">邮箱</td>
+</tr>
+<tr>
+<td>WZ</td>
+<td style="text-align:center">网址</td>
+</tr>
+<tr>
+<td>ZCH</td>
+<td style="text-align:center">注册号</td>
+</tr>
+<tr>
+<td>YDDH</td>
+<td style="text-align:center">移动电话</td>
+</tr>
+<tr>
+<td>XJJHY</td>
+<td style="text-align:center">新经济行业</td>
+</tr>
+<tr>
+<td>ZGBM</td>
+<td style="text-align:center">主管部门名称</td>
+</tr>
+<tr>
+<td>DJPZJG</td>
+<td style="text-align:center">登记批准机构代码</td>
+</tr>
+<tr>
+<td>JYDZ</td>
+<td style="text-align:center">经营地址</td>
+</tr>
+</tbody>
+</table>
+<h2 id="产品数据说明"><a href="#产品数据说明" class="headerlink" title="产品数据说明"></a>产品数据说明</h2><h3 id="存储位置-1"><a href="#存储位置-1" class="headerlink" title="存储位置"></a>存储位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/nju/neo4j/import/imp_new/product.csv</span><br></pre></td></tr></table></figure>
+<h3 id="字段说明-2"><a href="#字段说明-2" class="headerlink" title="字段说明"></a>字段说明</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZZJGDM</td>
+<td style="text-align:center">组织机构代码</td>
+</tr>
+<tr>
+<td>ORGAN_NM</td>
+<td style="text-align:center">企业名称</td>
+</tr>
+<tr>
+<td>ECONOMY_TYPE</td>
+<td style="text-align:center">经济类型1.国有 2.集体 3.私营 4.个体 5.联营 6.股份制 7.外商投资 8.港澳台投资 9.其他</td>
+</tr>
+<tr>
+<td>FILLTIME</td>
+<td style="text-align:center">申请日期</td>
+</tr>
+<tr>
+<td>PROD_NM</td>
+<td style="text-align:center">产品名称</td>
+</tr>
+<tr>
+<td>PROD_MODEL_CH</td>
+<td style="text-align:center">产品型号</td>
+</tr>
+<tr>
+<td>STAND_NO</td>
+<td style="text-align:center">执行标准编号</td>
+</tr>
+<tr>
+<td>STAND_NM</td>
+<td style="text-align:center">执行标准名称</td>
+</tr>
+<tr>
+<td>CERTNUM</td>
+<td style="text-align:center">等级证书编号（证书副本编号）</td>
+</tr>
+<tr>
+<td>INFILEDATE</td>
+<td style="text-align:center">归档日期</td>
+</tr>
+</tbody>
+</table>
+<h2 id="人员数据说明"><a href="#人员数据说明" class="headerlink" title="人员数据说明"></a>人员数据说明</h2><h3 id="存储位置-2"><a href="#存储位置-2" class="headerlink" title="存储位置"></a>存储位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/nju/neo4j/import/imp_new/employee.csv</span><br></pre></td></tr></table></figure>
+<h3 id="字段说明-3"><a href="#字段说明-3" class="headerlink" title="字段说明"></a>字段说明</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZJHM</td>
+<td style="text-align:center">证件号码</td>
+</tr>
+<tr>
+<td>NAME</td>
+<td style="text-align:center">姓名</td>
+</tr>
+<tr>
+<td>SEX</td>
+<td style="text-align:center">性别</td>
+</tr>
+<tr>
+<td>BIRTHDAY</td>
+<td style="text-align:center">出生日期</td>
+</tr>
+<tr>
+<td>ZY</td>
+<td style="text-align:center">所学专业</td>
+</tr>
+<tr>
+<td>XL</td>
+<td style="text-align:center">学历</td>
+</tr>
+<tr>
+<td>XW</td>
+<td style="text-align:center">学位</td>
+</tr>
+<tr>
+<td>ZC</td>
+<td style="text-align:center">职称</td>
+</tr>
+<tr>
+<td>ZJLX</td>
+<td style="text-align:center">证件类型</td>
+</tr>
+<tr>
+<td>NATION</td>
+<td style="text-align:center">民族</td>
+</tr>
+<tr>
+<td>ORGAN_ID</td>
+<td style="text-align:center">所属组织机构代码</td>
+</tr>
+<tr>
+<td>TXDZ</td>
+<td style="text-align:center">通讯地址</td>
+</tr>
+<tr>
+<td>YB</td>
+<td style="text-align:center">邮编</td>
+</tr>
+<tr>
+<td>LXFS</td>
+<td style="text-align:center">联系方式</td>
+</tr>
+<tr>
+<td>ORGAN_NAME</td>
+<td style="text-align:center">组织机构名称</td>
+</tr>
+</tbody>
+</table>
+<h2 id="特种设备数据说明"><a href="#特种设备数据说明" class="headerlink" title="特种设备数据说明"></a>特种设备数据说明</h2><h3 id="存储位置-3"><a href="#存储位置-3" class="headerlink" title="存储位置"></a>存储位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/nju/neo4j/import/imp_new/equip.csv</span><br></pre></td></tr></table></figure>
+<h3 id="字段说明-4"><a href="#字段说明-4" class="headerlink" title="字段说明"></a>字段说明</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td style="text-align:center">主键</td>
+</tr>
+<tr>
+<td>CHUCHANGBIANHAO</td>
+<td style="text-align:center">出厂编号</td>
+</tr>
+<tr>
+<td>DENGJIZHENGBIANHAO</td>
+<td style="text-align:center">登记证编号</td>
+</tr>
+<tr>
+<td>NEIBUBIANHAO</td>
+<td style="text-align:center">内部编号</td>
+</tr>
+<tr>
+<td>SHEBEIDAIMA</td>
+<td style="text-align:center">设备代码</td>
+</tr>
+<tr>
+<td>SHEBEIDIDIAN</td>
+<td style="text-align:center">设备地点</td>
+</tr>
+<tr>
+<td>SHEBEILEIBIE</td>
+<td style="text-align:center">设备类别</td>
+</tr>
+<tr>
+<td>SHEBEIMINGCHENG</td>
+<td style="text-align:center">设备名称</td>
+</tr>
+<tr>
+<td>SHEBEIXINGHAO</td>
+<td style="text-align:center">设备型号</td>
+</tr>
+<tr>
+<td>SHEBEIZHONGLEI</td>
+<td style="text-align:center">设备种类</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI</td>
+<td style="text-align:center">施工单位</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEIID</td>
+<td style="text-align:center">施工单位ID</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_DIZHI</td>
+<td style="text-align:center">施工单位地址</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_LIANXIDIANHUA</td>
+<td style="text-align:center">施工单位联系电话</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_LIANXIREN</td>
+<td style="text-align:center">施工单位联系人</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI</td>
+<td style="text-align:center">使用单位</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEIID</td>
+<td style="text-align:center">使用单位ID</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_DIZHI</td>
+<td style="text-align:center">使用单位地址</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_LIANXIDIANHUA</td>
+<td style="text-align:center">使用单位联系电话</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_LIANXIREN</td>
+<td style="text-align:center">使用单位联系人</td>
+</tr>
+<tr>
+<td>STATE</td>
+<td style="text-align:center">状态</td>
+</tr>
+<tr>
+<td>ZHIZAORIQI</td>
+<td style="text-align:center">制造日期</td>
+</tr>
+<tr>
+<td>ZHUCEDAIMA</td>
+<td style="text-align:center">注册代码</td>
+</tr>
+<tr>
+<td>ZHUCERIQI</td>
+<td style="text-align:center">注册日期</td>
+</tr>
+<tr>
+<td>JIANYANJIESHURIQI</td>
+<td style="text-align:center">检验结束日期</td>
+</tr>
+<tr>
+<td>JIANYANKAISHIRIQI</td>
+<td style="text-align:center">检验开始日期</td>
+</tr>
+<tr>
+<td>QUHUADAIMA</td>
+<td style="text-align:center">区划代码</td>
+</tr>
+<tr>
+<td>QUHUAMINGCHENG</td>
+<td style="text-align:center">区划名称</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_JIANCHENG</td>
+<td style="text-align:center">施工单位简称</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_XUKEZHENGBIANHAO</td>
+<td style="text-align:center">施工的单位许可证编号</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_CODE</td>
+<td style="text-align:center">使用单位代码</td>
+</tr>
+<tr>
+<td>WEIHUBAOYANGDANWEI</td>
+<td style="text-align:center">维护保养单位</td>
+</tr>
+<tr>
+<td>WEIHUBAOYANGDANWEI_ID</td>
+<td style="text-align:center">维护保养单位ID</td>
+</tr>
+<tr>
+<td>XIACIJIANYANRIQI</td>
+<td style="text-align:center">下次检验日期</td>
+</tr>
+<tr>
+<td>ZHIZAODANWEI</td>
+<td style="text-align:center">制造单位</td>
+</tr>
+<tr>
+<td>DTYPE</td>
+<td style="text-align:center">电梯型式</td>
+</tr>
+<tr>
+<td>BIAOZHUNJIAGE</td>
+<td style="text-align:center">标准价格</td>
+</tr>
+<tr>
+<td>DINGSHENGXINGSHI</td>
+<td style="text-align:center">顶升型式</td>
+</tr>
+<tr>
+<td>EDINGSUDU</td>
+<td style="text-align:center">额定速度</td>
+</tr>
+<tr>
+<td>EDINGSUDU_SHANGXING</td>
+<td style="text-align:center">额定速度上行</td>
+</tr>
+<tr>
+<td>EDINGSUDU_XIAXING</td>
+<td style="text-align:center">额定速度下行</td>
+</tr>
+<tr>
+<td>EDINGZAIZHONGLIANG</td>
+<td style="text-align:center">额定载重量</td>
+</tr>
+<tr>
+<td>ERLIEJIANYANHUANJING</td>
+<td style="text-align:center">恶劣检验环境</td>
+</tr>
+<tr>
+<td>FUJIAN</td>
+<td style="text-align:center">复检</td>
+</tr>
+<tr>
+<td>GONGGONGJIAOTONGXING</td>
+<td style="text-align:center">公共交通型</td>
+</tr>
+<tr>
+<td>JIAOYANXIANSUQI</td>
+<td style="text-align:center">校验限速器</td>
+</tr>
+<tr>
+<td>KONGZHIFANGSHI</td>
+<td style="text-align:center">控制方式</td>
+</tr>
+<tr>
+<td>MINGYIKUANDU</td>
+<td style="text-align:center">名义宽度</td>
+</tr>
+<tr>
+<td>MINGYISUDU</td>
+<td style="text-align:center">名义速度</td>
+</tr>
+<tr>
+<td>QINGXIEJIAO</td>
+<td style="text-align:center">倾斜角</td>
+</tr>
+<tr>
+<td>QUDUANCHANGDU</td>
+<td style="text-align:center">区段长度</td>
+</tr>
+<tr>
+<td>TISHENGGAODU</td>
+<td style="text-align:center">提升高度</td>
+</tr>
+<tr>
+<td>YOUGUANSHULIANG</td>
+<td style="text-align:center">油罐数量</td>
+</tr>
+<tr>
+<td>ZCSTATUS</td>
+<td style="text-align:center">注册状态</td>
+</tr>
+<tr>
+<td>CAIZHI</td>
+<td style="text-align:center">材质</td>
+</tr>
+<tr>
+<td>CHELIANGDIPANHAO</td>
+<td style="text-align:center">车辆底盘号</td>
+</tr>
+<tr>
+<td>CHELIANGLEIXING</td>
+<td style="text-align:center">车辆类型</td>
+</tr>
+<tr>
+<td>CHELIANGXINGHAO</td>
+<td style="text-align:center">车辆型号</td>
+</tr>
+<tr>
+<td>CHEPAIHAO</td>
+<td style="text-align:center">车牌号</td>
+</tr>
+<tr>
+<td>CHEZHU</td>
+<td style="text-align:center">车主</td>
+</tr>
+<tr>
+<td>FADONGJIHAO</td>
+<td style="text-align:center">发动机号</td>
+</tr>
+<tr>
+<td>GONGZUOJIEZHI</td>
+<td style="text-align:center">工作介质</td>
+</tr>
+<tr>
+<td>LIANXIDIANHUA</td>
+<td style="text-align:center">联系电话</td>
+</tr>
+<tr>
+<td>QIPINGJINGZHONG</td>
+<td style="text-align:center">气瓶净重</td>
+</tr>
+<tr>
+<td>QIPINGSHULIANG</td>
+<td style="text-align:center">气瓶数量</td>
+</tr>
+<tr>
+<td>QITILEIXING</td>
+<td style="text-align:center">气体类型</td>
+</tr>
+<tr>
+<td>RONGJI</td>
+<td style="text-align:center">容积</td>
+</tr>
+<tr>
+<td>TONGXUNDIZHI</td>
+<td style="text-align:center">通讯地址</td>
+</tr>
+<tr>
+<td>XIANWEI</td>
+<td style="text-align:center">纤维</td>
+</tr>
+<tr>
+<td>ZHENGBEIZHONGLIANG</td>
+<td style="text-align:center">整备重量</td>
+</tr>
+<tr>
+<td>ZHONGLIANG</td>
+<td style="text-align:center">重量</td>
+</tr>
+<tr>
+<td>FAZHENGRIQI</td>
+<td style="text-align:center">发证日期</td>
+</tr>
+<tr>
+<td>SFSHUODING</td>
+<td style="text-align:center">是否锁定</td>
+</tr>
+<tr>
+<td>SHEBEILEIBIEDAIMA</td>
+<td style="text-align:center">设备类别代码</td>
+</tr>
+<tr>
+<td>SHEBEIZHONGLEIDAIMA</td>
+<td style="text-align:center">设备种类代码</td>
+</tr>
+<tr>
+<td>SHENBEIPINZHONGDAIMA</td>
+<td style="text-align:center">设备品种代码</td>
+</tr>
+<tr>
+<td>WEIHUBAOYANGDANWEI_DIANHUA</td>
+<td style="text-align:center">维护保养单位电话</td>
+</tr>
+<tr>
+<td>GAOZHIRIQI</td>
+<td style="text-align:center">告知日期</td>
+</tr>
+<tr>
+<td>GAOZHIBIANHAO</td>
+<td style="text-align:center">告知编号</td>
+</tr>
+<tr>
+<td>ANZHUANGRIQI</td>
+<td style="text-align:center">安装日期</td>
+</tr>
+<tr>
+<td>ZHIZAODANWEIXUKEZHENGBIANHAO</td>
+<td style="text-align:center">制造单位许可证编号</td>
+</tr>
+<tr>
+<td>SHEBEIPINZHONG</td>
+<td style="text-align:center">设备品种</td>
+</tr>
+<tr>
+<td>SZSTATUS</td>
+<td style="text-align:center">是否市直</td>
+</tr>
+<tr>
+<td>SHEBEIXINGSHI</td>
+<td style="text-align:center">设备型式</td>
+</tr>
+<tr>
+<td>SHIGONGLEIBIE</td>
+<td style="text-align:center">施工类别</td>
+</tr>
+<tr>
+<td>SHIGONGLEIBIEDAIMA</td>
+<td style="text-align:center">施工类别代码</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_YOUZHENGBIANMA</td>
+<td style="text-align:center">使用单位邮政编码</td>
+</tr>
+<tr>
+<td>JIANYANJIELUN</td>
+<td style="text-align:center">检验结论</td>
+</tr>
+<tr>
+<td>SHEBEIBAOJIANRIQI</td>
+<td style="text-align:center">设备报检日期</td>
+</tr>
+<tr>
+<td>JIANYANLEIXING</td>
+<td style="text-align:center">检验类型</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_XKZ_YOUXIAOQI</td>
+<td style="text-align:center">施工单位许可证有效期</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_CHUANZHEN</td>
+<td style="text-align:center">使用单位传真</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_YOUBIAN</td>
+<td style="text-align:center">使用单位邮编</td>
+</tr>
+<tr>
+<td>GAOZHIJINGBANREN</td>
+<td style="text-align:center">告知经办人</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_CHUANZHEN</td>
+<td style="text-align:center">施工单位传真</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_YOUBIAN</td>
+<td style="text-align:center">施工单位邮编</td>
+</tr>
+<tr>
+<td>GZ_FILEPATH</td>
+<td style="text-align:center">告知文件路径</td>
+</tr>
+<tr>
+<td>BAOGAOBIANHAO</td>
+<td style="text-align:center">报告编号</td>
+</tr>
+<tr>
+<td>JYBG_ID</td>
+<td style="text-align:center">检验报告ID</td>
+</tr>
+<tr>
+<td>BJ_JIANYANXIANGMU</td>
+<td style="text-align:center">办结报告检验项目</td>
+</tr>
+<tr>
+<td>DJ_JINGBANREN</td>
+<td style="text-align:center">登记经办人</td>
+</tr>
+<tr>
+<td>DJ_JINGBANRIQI</td>
+<td style="text-align:center">登记经办日期</td>
+</tr>
+<tr>
+<td>FLAG</td>
+<td style="text-align:center">设备发送状态</td>
+</tr>
+<tr>
+<td>ZFSTATE</td>
+<td style="text-align:center">作废状态</td>
+</tr>
+<tr>
+<td>DJB_ID</td>
+<td style="text-align:center">登记表ID</td>
+</tr>
+<tr>
+<td>EQHIDE</td>
+<td style="text-align:center">是否隐患设备</td>
+</tr>
+<tr>
+<td>BANJIERIQI</td>
+<td style="text-align:center">办结日期</td>
+</tr>
+<tr>
+<td>BIAOZHULEIXING</td>
+<td style="text-align:center">标注类型</td>
+</tr>
+<tr>
+<td>FJ_FILEPATH</td>
+<td style="text-align:center">附件</td>
+</tr>
+<tr>
+<td>TMPDATA</td>
+<td style="text-align:center">是否为临时数据</td>
+</tr>
+<tr>
+<td>PID</td>
+<td style="text-align:center">源数据ID</td>
+</tr>
+<tr>
+<td>SHI</td>
+<td style="text-align:center">市</td>
+</tr>
+<tr>
+<td>SHIDAIMA</td>
+<td style="text-align:center">市代码</td>
+</tr>
+<tr>
+<td>XIANGZHEN</td>
+<td style="text-align:center">乡镇</td>
+</tr>
+<tr>
+<td>XIANGZHENDAIMA</td>
+<td style="text-align:center">乡镇代码</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI</td>
+<td style="text-align:center">产权单位</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI_DIZHI</td>
+<td style="text-align:center">产权单位地址</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI_DAIMA</td>
+<td style="text-align:center">产权单位代码</td>
+</tr>
+<tr>
+<td>JIANYANJIGOU</td>
+<td style="text-align:center">检验机构</td>
+</tr>
+<tr>
+<td>BIANGENGRIQI</td>
+<td style="text-align:center">变更日期  20160427</td>
+</tr>
+<tr>
+<td>ANQUANGUANLIBUMEN</td>
+<td style="text-align:center">安全管理部门</td>
+</tr>
+<tr>
+<td>ANQUANGUANLI_LIANXIDIANHUA</td>
+<td style="text-align:center">安全部门联系电话</td>
+</tr>
+<tr>
+<td>ANQUANGUANLIRENYUAN</td>
+<td style="text-align:center">安全管理人员</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_SUOSHUHANGYE</td>
+<td style="text-align:center">使用单位所属行业</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI_SUOSHUHANGYE</td>
+<td style="text-align:center">产权单位所属行业</td>
+</tr>
+<tr>
+<td>NJ_BAOGAOBIANHAO</td>
+<td style="text-align:center">内检报告编号</td>
+</tr>
+<tr>
+<td>WJ_BAOGAOBIANHAO</td>
+<td style="text-align:center">外检报告编号</td>
+</tr>
+<tr>
+<td>ND_BAOGAOBIANHAO</td>
+<td style="text-align:center">年度报告编号</td>
+</tr>
+<tr>
+<td>QM_BAOGAOBIANHAO</td>
+<td style="text-align:center">全面报告编号</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI_FARENDAIBIAO</td>
+<td style="text-align:center">产权单位法人代表</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI_DIANHUA</td>
+<td style="text-align:center">产权单位电话</td>
+</tr>
+<tr>
+<td>FADINGDAIBIAOREN</td>
+<td style="text-align:center">法定代表人</td>
+</tr>
+<tr>
+<td>ZHUGUANFUZEREN</td>
+<td style="text-align:center">主管负责人</td>
+</tr>
+<tr>
+<td>ZHUGUANFUZERENDIANHUA</td>
+<td style="text-align:center">主管负责人电话</td>
+</tr>
+<tr>
+<td>JINGBANREN</td>
+<td style="text-align:center">经办人</td>
+</tr>
+<tr>
+<td>JINGBANRENDIANHUA</td>
+<td style="text-align:center">经办人电话</td>
+</tr>
+<tr>
+<td>GUDINGZICHANZHI</td>
+<td style="text-align:center">固定资产值</td>
+</tr>
+<tr>
+<td>SHEBEISHIYONGNIANXIAN</td>
+<td style="text-align:center">设备使用年限</td>
+</tr>
+<tr>
+<td>WHBYDW_ZIZHIZHENGSHU</td>
+<td style="text-align:center">维保单位资质证书</td>
+</tr>
+<tr>
+<td>WEIHUBAOYANGDANWEI_LIANXIREN</td>
+<td style="text-align:center">维保单位联系人</td>
+</tr>
+<tr>
+<td>FRDB_DIANHUA</td>
+<td style="text-align:center">使用单位法人电话</td>
+</tr>
+<tr>
+<td>CQDW_FRDBDH</td>
+<td style="text-align:center">产权单位法人电话</td>
+</tr>
+<tr>
+<td>GONGCHENGMINGCHENG</td>
+<td style="text-align:center">工程名称</td>
+</tr>
+<tr>
+<td>ZHUGUANBUMEN</td>
+<td style="text-align:center">主管部门</td>
+</tr>
+<tr>
+<td>HANGYE</td>
+<td style="text-align:center">行业</td>
+</tr>
+<tr>
+<td>ZHUCEDENGJIRENYUAN</td>
+<td style="text-align:center">注册登记人员</td>
+</tr>
+<tr>
+<td>ZHUCEDENGJIJIGOU</td>
+<td style="text-align:center">注册登记机构</td>
+</tr>
+<tr>
+<td>SHENHERIQI</td>
+<td style="text-align:center">审核日期</td>
+</tr>
+<tr>
+<td>DENGJIYIJIAN</td>
+<td style="text-align:center">登记意见</td>
+</tr>
+<tr>
+<td>SHEJIDANWEI</td>
+<td style="text-align:center">设计单位</td>
+</tr>
+<tr>
+<td>SHEJIDANWEIDAIMA</td>
+<td style="text-align:center">设计单位代码</td>
+</tr>
+<tr>
+<td>TOUYONGRIQI</td>
+<td style="text-align:center">投用日期</td>
+</tr>
+<tr>
+<td>SUOSHUCHEJIAN</td>
+<td style="text-align:center">所属车间</td>
+</tr>
+<tr>
+<td>BEIZHU</td>
+<td style="text-align:center">备注</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_DAIMA</td>
+<td style="text-align:center">施工单位代码</td>
+</tr>
+<tr>
+<td>ZHIZAORIQI_DATE</td>
+<td style="text-align:center">制造日期（日期型）</td>
+</tr>
+<tr>
+<td>TOUYONGRIQI_DATE</td>
+<td style="text-align:center">投用日期（日期型）</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI_YOUBIAN</td>
+<td style="text-align:center">产权单位邮政编码</td>
+</tr>
+<tr>
+<td>CHANQUANDANWEI_XINGZHI</td>
+<td style="text-align:center">产权单位性质</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_XINGZHI</td>
+<td style="text-align:center">使用单位单位性质</td>
+</tr>
+<tr>
+<td>ANQUANDENGJI</td>
+<td style="text-align:center">安全等级</td>
+</tr>
+<tr>
+<td>ZHIGONGRENSHU</td>
+<td style="text-align:center">职工人数</td>
+</tr>
+<tr>
+<td>NIANCHANZHI</td>
+<td style="text-align:center">年产值</td>
+</tr>
+<tr>
+<td>TIANBIAORENYUAN</td>
+<td style="text-align:center">填表人员</td>
+</tr>
+<tr>
+<td>JIANGUANLEIBIE</td>
+<td style="text-align:center">监管类别</td>
+</tr>
+<tr>
+<td>ZHIZAODANWEI_CODE</td>
+<td style="text-align:center">制造单位代码</td>
+</tr>
+<tr>
+<td>ZHIZAODANWEI_ZIGEZHENGSHU</td>
+<td style="text-align:center">制造单位资格证书</td>
+</tr>
+<tr>
+<td>ZHIZAODANWEI_LIANXIDIANHUA</td>
+<td style="text-align:center">制造单位联系电话</td>
+</tr>
+<tr>
+<td>ZHIZAODANWEI_SHIYONGCHANGHE</td>
+<td style="text-align:center">适用场合</td>
+</tr>
+<tr>
+<td>CHANPINHEGEZHENGBIANHAO</td>
+<td style="text-align:center">产品合格证编号</td>
+</tr>
+<tr>
+<td>JIANDINGBAOGAOBIANHAO</td>
+<td style="text-align:center">鉴定报告编号</td>
+</tr>
+<tr>
+<td>WENJIANJIANDINGJIGOU</td>
+<td style="text-align:center">文件鉴定机构</td>
+</tr>
+<tr>
+<td>ZHIZAOJIANJIANJIGOU</td>
+<td style="text-align:center">制造监检机构</td>
+</tr>
+<tr>
+<td>JIANJIANZHENGSHUBIANHAO</td>
+<td style="text-align:center">制造监检证书编号</td>
+</tr>
+<tr>
+<td>JIANJIANHEZHUNZHENG</td>
+<td style="text-align:center">制造监检核准证</td>
+</tr>
+<tr>
+<td>ZHIZAOJIANJIANRIQI</td>
+<td style="text-align:center">制造监检日期</td>
+</tr>
+<tr>
+<td>ANZHUANGDANWEI</td>
+<td style="text-align:center">安装单位</td>
+</tr>
+<tr>
+<td>ANZHUANGDANWEI_DAIMA</td>
+<td style="text-align:center">安装单位代码</td>
+</tr>
+<tr>
+<td>ANZHUANGDANWEI_ZIGEZHENGSHU</td>
+<td style="text-align:center">安装单位资格证书</td>
+</tr>
+<tr>
+<td>ANZHUANGDANWEI_LIANXIREN</td>
+<td style="text-align:center">联系人</td>
+</tr>
+<tr>
+<td>ANZHUANGDANWEI_LIANXIDIANHUA</td>
+<td style="text-align:center">联系电话</td>
+</tr>
+<tr>
+<td>ANZHUANGJIANJIANRIQI</td>
+<td style="text-align:center">安装监检日期</td>
+</tr>
+<tr>
+<td>ANZHUANGJIANJIANJIGOU</td>
+<td style="text-align:center">安装监检机构</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_SHIGONGRIQI</td>
+<td style="text-align:center">施工单位施工日期（施工告知日期）</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_JUNGONGRIQI</td>
+<td style="text-align:center">施工单位竣工日期</td>
+</tr>
+<tr>
+<td>YANSHOUDANWEI</td>
+<td style="text-align:center">验收单位</td>
+</tr>
+<tr>
+<td>YANSHOURIQI</td>
+<td style="text-align:center">验收日期</td>
+</tr>
+<tr>
+<td>YANSHOUJIGOU</td>
+<td style="text-align:center">验收机构</td>
+</tr>
+<tr>
+<td>YANSHOUBAOGAOBIANHAO</td>
+<td style="text-align:center">验收报告编号</td>
+</tr>
+<tr>
+<td>DAXIUZHOUQI</td>
+<td style="text-align:center">大修周期 （月）</td>
+</tr>
+<tr>
+<td>WEIBAOZHOUQI</td>
+<td style="text-align:center">维保周期 （周）</td>
+</tr>
+<tr>
+<td>WEIHUBAOYANGDANWEI_CODE</td>
+<td style="text-align:center">维保代码</td>
+</tr>
+<tr>
+<td>JIANYANJIGOU_CODE</td>
+<td style="text-align:center">检验机构代码</td>
+</tr>
+<tr>
+<td>ZHUYAOWENTI</td>
+<td style="text-align:center">主要问题</td>
+</tr>
+<tr>
+<td>SHIGULEIBIE</td>
+<td style="text-align:center">事故类别</td>
+</tr>
+<tr>
+<td>SHIGUFASHENGRIQI</td>
+<td style="text-align:center">事故发生日期</td>
+</tr>
+<tr>
+<td>SHIGUCHULIJIEGUO</td>
+<td style="text-align:center">事故处理结果</td>
+</tr>
+<tr>
+<td>SHEBEIBIANDONGFANGSHI</td>
+<td style="text-align:center">设备变动方式</td>
+</tr>
+<tr>
+<td>SHEBEIBIANDONGXIANGMU</td>
+<td style="text-align:center">设备变动项目</td>
+</tr>
+<tr>
+<td>CHENGDANDANWEI</td>
+<td style="text-align:center">承担单位</td>
+</tr>
+<tr>
+<td>SHEBEIBIANDONGRIQI</td>
+<td style="text-align:center">设备变动日期</td>
+</tr>
+<tr>
+<td>CHENGDANDANWEI_CODE</td>
+<td style="text-align:center">承担单位代码</td>
+</tr>
+<tr>
+<td>BAOXIANJIGOU</td>
+<td style="text-align:center">保险机构</td>
+</tr>
+<tr>
+<td>BAOXIANXIANZHONG</td>
+<td style="text-align:center">保险险种</td>
+</tr>
+<tr>
+<td>BAOXIANFEI</td>
+<td style="text-align:center">保险费</td>
+</tr>
+<tr>
+<td>BAOXIANJI</td>
+<td style="text-align:center">保险金额</td>
+</tr>
+<tr>
+<td>BAOXIANJIAZHI</td>
+<td style="text-align:center">保险价值</td>
+</tr>
+<tr>
+<td>SHIFOU_ZHONGDAWEIXIANYUAN</td>
+<td style="text-align:center">是否重大危险源</td>
+</tr>
+<tr>
+<td>SHIFOU_RENKOUMIJIQU</td>
+<td style="text-align:center">是否密集区</td>
+</tr>
+<tr>
+<td>SHIFOU_YINGJIFANGAN</td>
+<td style="text-align:center">是否应急方案</td>
+</tr>
+<tr>
+<td>SHIFOU_ZHONGDIANJIANKONG</td>
+<td style="text-align:center">是否重点监控</td>
+</tr>
+<tr>
+<td>SHIYONGCHANGSUO</td>
+<td style="text-align:center">使用场所</td>
+</tr>
+<tr>
+<td>SHIYONGDANWEI_CAOZUORENYUAN</td>
+<td style="text-align:center">操作人员</td>
+</tr>
+<tr>
+<td>TIANBIAORIQI</td>
+<td style="text-align:center">填表日期</td>
+</tr>
+<tr>
+<td>DENGJILEIBIE</td>
+<td style="text-align:center">登记类别</td>
+</tr>
+<tr>
+<td>CHANPINTUHAO</td>
+<td style="text-align:center">产品图号</td>
+</tr>
+<tr>
+<td>SHIGONGDANWEI_YOUZHENGBIANMA</td>
+<td style="text-align:center">施工单位邮政编码</td>
+</tr>
+<tr>
+<td>SHEJIXUKEZHENG</td>
+<td style="text-align:center">设计许可证编号</td>
+</tr>
+<tr>
+<td>SHIFOU_DYRRJS</td>
+<td style="text-align:center">是否吊运熔融金属</td>
+</tr>
+<tr>
+<td>JINGDU</td>
+<td style="text-align:center">经度</td>
+</tr>
+<tr>
+<td>WEIDU</td>
+<td style="text-align:center">纬度</td>
+</tr>
+<tr>
+<td>UPDATETIME</td>
+<td style="text-align:center">更新日期</td>
+</tr>
+</tbody>
+</table>
+</div><div class="tags"><a href="/tags/项目纪要/">项目纪要</a></div><div class="post-nav"><a class="pre" href="/2018/07/07/Graph-Mining/">基于机器学习的质监预测技术</a><a class="next" href="/2018/06/24/week-summary-suchuan/">南京大学学习周报-苏川</a></div><div id="container"></div><link rel="stylesheet" href="/css/default.css?v=0.0.0"><script src="/js/gitment.browser.js?v=0.0.0"></script><script>var gitment = new Gitment({
+  owner: 'caochun',
+  repo: 'comments-cvicse',
+  oauth: {
+    client_id: '502baa5b22416eebf178',
+    client_secret: 'dede4f9ce1c22f8333524381b1d23895da54e660',
+  },
+})
+gitment.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://cvicse.njuics.cn"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/项目纪要/" style="font-size: 15px;">项目纪要</a> <a href="/tags/学习笔记/" style="font-size: 15px;">学习笔记</a> <a href="/tags/个人小结/" style="font-size: 15px;">个人小结</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/27/Product-classification/">Product-classification</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/07/Graph-Mining/">基于机器学习的质监预测技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/26/Data-Explaination/">质监数据说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/week-summary-suchuan/">南京大学学习周报-苏川</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/week-summary-pcq/">图数据库Neo4j学习总结-彭长青</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/23/First-Using-GitAndGithub/">Git与GitHub入门教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/21/Graph-based-Enterprise-Portrait/">基于图数据库的企业画像</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/Data-Processing-for-Shanghai-Stock-Exchange/">上证所交易数据处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Real-Time-Tolling/">高速计费实时数据处理框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/01/hello-world/">开篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">NJUCS-CVICSE.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

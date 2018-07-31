@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>基于机器学习的质监预测技术 | NJUCS-CVICSE</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','UA-121783408-3','auto');ga('send','pageview');
+</script></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">基于机器学习的质监预测技术</h1><a id="logo" href="/.">NJUCS-CVICSE</a><p class="description">联合实验室工作日志</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">基于机器学习的质监预测技术</h1><div class="post-meta">Jul 7, 2018</div><div class="post-content"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现有一批质监局数据，导出自某数据库，包含的基本关系有：</p>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>企业基本信息</td>
+<td>165万</td>
+</tr>
+<tr>
+<td>企业投资信息表</td>
+<td>1248</td>
+</tr>
+<tr>
+<td>监督检查企业产品信息表</td>
+<td>27534</td>
+</tr>
+<tr>
+<td>产品基本信息</td>
+<td>21955</td>
+</tr>
+<tr>
+<td>企业产品信息关联表</td>
+<td>7379</td>
+</tr>
+<tr>
+<td>企业标准/认证/资质/荣誉信息关联表</td>
+<td>1419</td>
+</tr>
+<tr>
+<td>企业分支机构基本信息关联表</td>
+<td>20</td>
+</tr>
+<tr>
+<td>企业股东信息</td>
+<td>426</td>
+</tr>
+<tr>
+<td>企业高管信息</td>
+<td>699</td>
+</tr>
+<tr>
+<td>企业官网信息关联表</td>
+<td>672</td>
+</tr>
+<tr>
+<td>特种设备基本信息</td>
+<td>1162098</td>
+</tr>
+<tr>
+<td>特种设备作业人员情况</td>
+<td>57684</td>
+</tr>
+<tr>
+<td>特种设备作业人员信息</td>
+<td>2873</td>
+</tr>
+<tr>
+<td>人员基本信息表</td>
+<td>702573</td>
+</tr>
+</tbody>
+</table>
+<p>根据以上主要关系，可以构建包含企业、产品、法人、投资关系等的图模型，如下所示。主要包括，企业所生产的产品、企业股东、法人等。</p>
+<p><img src="/images/rel2.png" alt="rel"></p>
+<p>背景：质监局会对企业产品进行质量检测，反馈合格或者不合格，另外还有对整个公司的检测结果（这里并不确定是怎么来的。</p>
+<p>任务：根据已有部分抽检产品信息和检测结果，根据他们之间的关系，包括产品所属公司，公司之间的投资关系，人员关系等，构建模型，对所有未检测产品进行分类，预测它们可能的检测结果。</p>
+<p>任务特征：</p>
+<ul>
+<li>节点具有多种类型，包括产品、公司、人等；</li>
+<li>产品的相似度可能跟他们所属的公司有关，与它们所属的产品类型有关等；</li>
+<li>单从画的几个节点类型和关系类型，整个图是否完全连同，或者有太多分枝，每个都属于小的子图。</li>
+</ul>
+<p>任务抽象：</p>
+<ul>
+<li>属于异质图上的半监督学习问题，监督目标为部分节点的类别。</li>
+<li>亦可将问题拆分成两个步骤，分别是无监督的特征表示学习，加上监督的分类问题（目前尚无直接可用的带节点属性的异质网络上的节点特征学习方法）。</li>
+</ul>
+<h2 id="现有工作和算法"><a href="#现有工作和算法" class="headerlink" title="现有工作和算法"></a>现有工作和算法</h2><h3 id="PTE"><a href="#PTE" class="headerlink" title="PTE"></a>PTE</h3><blockquote>
+<p>Jian Tang, Meng Qu, Qiaozhu Mei. <a href="https://arxiv.org/pdf/1508.00200.pdf" target="_blank" rel="noopener">PTE: Predictive Text Embedding through Large-scale Heterogeneous Text Networks</a>. KDD 2015.</p>
+</blockquote>
+<p>该工作是对异质网络（即包含多种类型的节点和边的网络）中的每个节点学习生成较低维度空间的嵌入表达（embedding）。根据得到的嵌入表达，可以进行基本的分类、聚类等任务。主要方法是将异质网络拆分成多个同质网络进行处理。</p>
+<p>不符合之处：该工作未使用节点属性。另外，该工作适用的前提是异质网络可以拆分成多个同质网络（给定两个点，他们之间的边只有一种类型）。</p>
+<h3 id="metapath2vec"><a href="#metapath2vec" class="headerlink" title="metapath2vec"></a>metapath2vec</h3><blockquote>
+<p>Dong Y, Chawla N V, Swami A. <a href="https://dl.acm.org/citation.cfm?id=3098036" target="_blank" rel="noopener">metapath2vec: Scalable representation learning for heterogeneous networks</a>. KDD 2017.</p>
+</blockquote>
+<p>该工作是对异质网络中的每个节点学习生成较低维度空间的嵌入表达。根据得到的嵌入表达，可以进行基本的分类、聚类等任务。</p>
+<p>不符合之处：第一，该工作属于无监督学习，暂未使用监督信息；第二，该工作暂未使用节点属性。</p>
+<h3 id="GCN"><a href="#GCN" class="headerlink" title="GCN"></a>GCN</h3><blockquote>
+<p>Kipf T N, Welling M. <a href="https://arxiv.org/abs/1609.02907" target="_blank" rel="noopener">Semi-supervised classification with graph convolutional networks</a>. ICLR 2017.</p>
+</blockquote>
+<p>改工作是在普通同质网络（相对前面异质网络而言，即网络的节点和边只有一种类型）上使用GCN（graph convolutional networks）方法做的半监督分类问题。</p>
+<p>不符合之处：该工作处理同质网络，忽略了异质网络的信息。</p>
+<h3 id="GraphSAGE"><a href="#GraphSAGE" class="headerlink" title="GraphSAGE"></a>GraphSAGE</h3><blockquote>
+<p>Hamilton W, Ying Z, Leskovec J. <a href="https://arxiv.org/abs/1706.02216" target="_blank" rel="noopener">Inductive representation learning on large graphs</a>. NIPS 2017.</p>
+</blockquote>
+<p>该工作是基于上一篇的改良的无监督学习版本。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>姚老师给出了如下解决方法：</p>
+<ol>
+<li><p>直接将异质网络简化成同质网络，然后使用GCN。GCN天生可以处理节点属性，并且是半监督学习方法，直接可以用于当前任务。</p>
+</li>
+<li><p>将异质网络拆分成同质网络（可能损失部分信息），然后用PTE学习节点表达。然后将PTE学习的节点表达与节点属性拼接起来做监督学习。</p>
+</li>
+<li><p>使用metapath2vec在异质网络上得到节点表达。然后将metapath2vec学习的节点表达与节点属性拼接起来做监督学习。</p>
+</li>
+<li><p>结合上述工作，开发新的带节点属性的异质网络上的节点特征学习方法。（这种方法可能需要修改现有的方法与代码，工作量与创新性要求较大。）</p>
+</li>
+</ol>
+<h2 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h2><ol>
+<li>仔细分析已有数据，将已有数据进行过滤，去掉关系中不需要的属性；并转化成图的数据结构。</li>
+<li>在理解数据的基础上，进行异质网络到同质网路的简化，或异质网络到同质网络的拆分。</li>
+<li>跑一些GCN、PTE、metapath2vect的实验（代码均公开）。</li>
+</ol>
+</div><div class="tags"><a href="/tags/项目纪要/">项目纪要</a></div><div class="post-nav"><a class="pre" href="/2018/07/27/Product-classification/">Product-classification</a><a class="next" href="/2018/06/26/Data-Explaination/">质监数据说明</a></div><div id="container"></div><link rel="stylesheet" href="/css/default.css?v=0.0.0"><script src="/js/gitment.browser.js?v=0.0.0"></script><script>var gitment = new Gitment({
+  owner: 'caochun',
+  repo: 'comments-cvicse',
+  oauth: {
+    client_id: '502baa5b22416eebf178',
+    client_secret: 'dede4f9ce1c22f8333524381b1d23895da54e660',
+  },
+})
+gitment.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://cvicse.njuics.cn"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/项目纪要/" style="font-size: 15px;">项目纪要</a> <a href="/tags/学习笔记/" style="font-size: 15px;">学习笔记</a> <a href="/tags/个人小结/" style="font-size: 15px;">个人小结</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/27/Product-classification/">Product-classification</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/07/Graph-Mining/">基于机器学习的质监预测技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/26/Data-Explaination/">质监数据说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/week-summary-suchuan/">南京大学学习周报-苏川</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/week-summary-pcq/">图数据库Neo4j学习总结-彭长青</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/23/First-Using-GitAndGithub/">Git与GitHub入门教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/21/Graph-based-Enterprise-Portrait/">基于图数据库的企业画像</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/Data-Processing-for-Shanghai-Stock-Exchange/">上证所交易数据处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Real-Time-Tolling/">高速计费实时数据处理框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/01/hello-world/">开篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">NJUCS-CVICSE.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

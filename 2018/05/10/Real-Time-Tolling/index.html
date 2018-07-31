@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>高速计费实时数据处理框架 | NJUCS-CVICSE</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','UA-121783408-3','auto');ga('send','pageview');
+</script></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">高速计费实时数据处理框架</h1><a id="logo" href="/.">NJUCS-CVICSE</a><p class="description">联合实验室工作日志</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">高速计费实时数据处理框架</h1><div class="post-meta">May 10, 2018</div><div class="post-content"><h2 id="数据处理模式说明"><a href="#数据处理模式说明" class="headerlink" title="数据处理模式说明"></a>数据处理模式说明</h2><h3 id="流式数据处理介绍"><a href="#流式数据处理介绍" class="headerlink" title="流式数据处理介绍"></a>流式数据处理介绍</h3><p>流式数据是指由数千个数据源持续生成的数据，通常也同时以数据记录的形式发送流式数据处理系统中进行处理。这一类数据在现实生活中分布广泛，例如用户使用您的移动或 Web 应用程序生成的日志文件、网购数据、游戏内玩家活动、社交网站信息、金融交易大厅或地理空间服务，以及来自数据中心内所连接设备或仪器的遥测数据。<br>对这一类流式数据的处理方式， 通常是按照记录或时间进行窗口划分按顺序进行递增式处理。</p>
+<h3 id="实时数据分析"><a href="#实时数据分析" class="headerlink" title="实时数据分析"></a>实时数据分析</h3><p>在流式数据处理中一类典型的任务是进行实时的数据处理和分析，也就是在数据进入或者到达流式数据处理系统之后，在不经过等待或者极小的等待时间，不进行持久化的数据保存等操作的情况下进行数据的处理和分析的工作。这一类任务的主要类型包括实时的数据分析、机器学习，实时的可视化的信息的展示，根据不断检测到的数据判断系统的变化，进而迅速作出相关决策或者建议，以及一些实时的查询响应等任务。</p>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>与传统的批处理任务相比，在传统模式下，数据产生后通常会保存在数据库或者某些文件系统中，之后程序在对这些数据进行处理，而在流式数据处理系统中，数据在到达系统后不会直接进行保存，而是直接进行分析和处理的操作，将结果在保存或者输出。</p>
+<p><img src="/images/tolling/batchprocess.png" alt="批处理模式"><br>批处理模式<br><img src="/images/tolling/streamprocess.png" alt="流处理模式"><br>流处理模式</p>
+<h2 id="传统的高速公路数据处理模型"><a href="#传统的高速公路数据处理模型" class="headerlink" title="传统的高速公路数据处理模型"></a>传统的高速公路数据处理模型</h2><p>以高速公路收费站为代表，说明高速公路模型中对数据的收集、传输、处理的过程。</p>
+<p>在汽车上下高速，进出收费站的过程中，车道会扫描每辆车辆的信息，包括车辆类型、车牌信息等等，然后添加时间、车站信息、车道信息等形成一条流水，车道收集每辆汽车的流水数据后，会在车站的数据库进行汇总，在这些数据上可以执行一些数据分析的任务。同时，车站会不定期将自己保存的数据上传到上级的中心数据库，比如省级中心数据库。中心数据库将所有收集到的数据进行汇总保存，再在上面执行相关的数据分析任务，包括车费的计算、校验，路费分摊等等。整个处理过程可以用下面的图表示：</p>
+<p><img src="/images/tolling/batchfreeway.png" alt="传统高速公路数据处理模型"><br>传统高速公路数据处理模型</p>
+<p>这是传统的数据处理模型，整个过程主要是数据收集和后期的静态数据的分析。仔细观察可以发现，整个模型只能处理和解决没有短时时间要求的任务，数据汇总传输的较慢，数据处理的任务也很单一。不能解决实时的数据任务，比如中心数据库想要获得实时的全局的道路交通信息，实时的对每一辆出站的汽车进行路费的计算任务等。如果使用支持流式数据处理任务的系统，则可以解决这一类问题。</p>
+<p>在车道得到每一条扫描到的数据之后，立即进入流式数据处理系统，进行计算处理，一边将结果进行保存，一边将数据马上发送到中心数据库，中心数据库也对收到的来自每一个车站的数据进行实时的数据分析和保存。这样在上级中心就可以实时的得到一个全局的信息，完成很多有实时行要求的任务。处理模型如下图所示：</p>
+<p><img src="/images/tolling/streamfreeway.png" alt="改进的高速公路数据处理模型"><br>改进的高速公路数据处理模型</p>
+<h2 id="高速计费模型"><a href="#高速计费模型" class="headerlink" title="高速计费模型"></a>高速计费模型</h2><p>根据改进的数据处理模型，可以实现很多传统模式下无法处理的任务，比如传统的车辆在高速公路上行驶时的收费问题。</p>
+<h3 id="传统收费模式"><a href="#传统收费模式" class="headerlink" title="传统收费模式"></a>传统收费模式</h3><p>车辆入站领卡—车辆出站交卡交费</p>
+<p>特点：</p>
+<ul>
+<li>卡片记录信息</li>
+<li>人工收费、操作效率低</li>
+<li>高速路口容易产生堵车</li>
+</ul>
+<h3 id="ETC模式"><a href="#ETC模式" class="headerlink" title="ETC模式"></a>ETC模式</h3><p>车辆安装相关设备，在高速路口扫描该设备自动扣款</p>
+<p>特点：</p>
+<ul>
+<li>安装麻烦</li>
+<li>会遮挡部分视线</li>
+<li>申请周期长，可能需要安装费</li>
+</ul>
+<h3 id="利用流式数据处理框架的改进模型"><a href="#利用流式数据处理框架的改进模型" class="headerlink" title="利用流式数据处理框架的改进模型"></a>利用流式数据处理框架的改进模型</h3><p>在现在的高速公路车辆行驶过程中，有很多数据采集的过程，对于这些已有数据配合相关大数据工具可以设计一个新的收费方案，需要的数据和技术有：</p>
+<ul>
+<li>车辆在高速公路的出入口都会扫描车牌，产生流水数据</li>
+<li>产生的数据可以实时的上传保存到中心数据库中，实际可能不是实时，但理论上可以做到</li>
+<li>流式数据处理框架配合大数据存储系统可以做到实时的数据处理和数据查询工作，理论上可以在很短的时间内处理一个出入数据，并计算车费</li>
+<li>中间检查点的信息，可以帮助判断和计算车辆行驶的确切路径，得到可靠的计算结果</li>
+</ul>
+<p><img src="/images/tolling/system.png" alt="系统设计图"></p>
+<h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><p>系统设计主要可以分为四个步骤：数据收集-入站记录数据库保存-出站记录匹配与处理-其他数据分析</p>
+<p>系统组成主要包括四个部分：<br>数据收集和缓存、<br>流式数据处理、<br>结果可视化、<br>数据持久化存储。</p>
+<h3 id="数据收集和缓存"><a href="#数据收集和缓存" class="headerlink" title="数据收集和缓存"></a>数据收集和缓存</h3><p>Kafka作为一个使用发布 - 订阅消息机制的分布式流式数据缓存平台，是一种典型的生产者消费者模型，数据源产生数据后不断将数据传送到Kafka里的一个topic队列中，对该topic进行订阅的消费者，也就是在我们系统中的流式数据处理模块，会不断地对这个topic获取数据。在这里Kafka主要起到数据缓存的作用。它的特点如下：</p>
+<ul>
+<li>一个使用发布 - 订阅消息机制的分布式流式数据缓存平台</li>
+<li>可以接收不同格式的数据，包括文本、图片、视频等</li>
+<li>具有低延时、高可靠性</li>
+<li>实现数据入载平衡</li>
+</ul>
+<h3 id="流式数据处理"><a href="#流式数据处理" class="headerlink" title="流式数据处理"></a>流式数据处理</h3><p>系统的核心部分。Apache Flink是一个面向分布式数据流处理和批量数据处理的开源计算平台，它能够基于同一个Flink运行时，提供支持流处理和批处理两种类型应用的功能。可以提供高吞吐率、低延时性的保证。同时能够很好地解决数据乱序问题、提供丰富的窗口划分机制、SQLAPI的集成等。类似的处理平台还有storm、spark streaming等。但很多实验都表明，在数据处理的吞吐率和延时等问题上，flink都有更好的保证。</p>
+<ul>
+<li>一个开源的处理流式数据和批数据的系统</li>
+<li>具有高吞吐率和低延时性</li>
+<li>可以处理数据的乱序等问题</li>
+<li>结果较准确</li>
+</ul>
+<h3 id="实时化的结果展示"><a href="#实时化的结果展示" class="headerlink" title="实时化的结果展示"></a>实时化的结果展示</h3><p>ElasticSearch是一个高度可扩展的开源搜索引擎并使用REST API,能够达到实时搜索，稳定，可靠，快速的目标，在使用flink对数据处理完成之后，对需要可视化的数据发送到es中响应的index，之后再借助kibana，可以迅速在网页中获得直观的展示。Kibana十一个专门用于分析和可视化的开源平台，继承了各种不同的图表、表格、地图，能轻易地和es进行交互，展示高级数据和可视化。</p>
+<h3 id="数据持久化存储"><a href="#数据持久化存储" class="headerlink" title="数据持久化存储"></a>数据持久化存储</h3><p>数据的持久化存储，使用hbase 和 hive平台。其中hbase 用来处理实时的数据请求和查询操作，在实验中主要处理出入站数据记录的查询匹配，路径路费的查询匹配等操作。而对保存在hive中的数据，支持进行后续的统计分析，机器学习等任务。</p>
+<h2 id="已有代码和使用Flink编程的说明"><a href="#已有代码和使用Flink编程的说明" class="headerlink" title="已有代码和使用Flink编程的说明"></a>已有代码和使用Flink编程的说明</h2><h3 id="Fink流式任务"><a href="#Fink流式任务" class="headerlink" title="Fink流式任务"></a>Fink流式任务</h3><p>一个Flink任务可以划分为三个部分：source、task、sink。<br>一个基本流程是：</p>
+<ul>
+<li>首先创建一个StreamExecutionEnvironment对象，设置相关参数</li>
+<li>设置source</li>
+<li>完成对数据要进行的处理，也就是task部分</li>
+<li>设置对结果的输出，即sink</li>
+</ul>
+<p>创建StreamExecutionEnvironment对象（Scala）</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> env: <span class="type">StreamExecutionEnvironment</span> = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br></pre></td></tr></table></figure>
+<p>创建StreamExecutionEnvironment对象（Java）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</span><br></pre></td></tr></table></figure>
+<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>source确定任务处理的数据来自于哪里，代码里用到的是 Kafka队列，另外还有从数据文件模拟了一个流数据产生的过程。官方API包含的source有<br>Apache Kafka,Amazon Kinesis Streams,RabbitMQ,Apache NiFi,Twitter Streaming API等等。</p>
+<p>source类继承自SourceFunction，主要实现的方法是run(sourceContext: SourceContext[T])，<br>一个StreamExecutionEnvironment对象在启动后会对添加的source调用run方法，传入sourceContext参数，该source通过不断向sourceContext写入数据，实现一个数据流的过程。</p>
+<p>添加source（Scala）：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> data: <span class="type">DataStream</span>[<span class="type">T</span>] = env.addSource(<span class="keyword">new</span> <span class="type">SourceFunction</span>())</span><br></pre></td></tr></table></figure>
+<p>添加source（Java）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataStream&lt;T&gt; data = env.addSource(<span class="keyword">new</span> SourceFunction());</span><br></pre></td></tr></table></figure>
+<p>简单说明代码里用到的 source：</p>
+<h4 id="WasteRecordSource-scala"><a href="#WasteRecordSource-scala" class="headerlink" title="WasteRecordSource.scala"></a>WasteRecordSource.scala</h4><p>WasteRecord是流水记录类，定义的是一条出入站的流水记录。在<code>datatypes\WasteRecord.scala</code>中定义。</p>
+<p>这里主要做的是打开保存好的流水数据文件，逐条读取每个记录，然后按照时间顺序，或者乱序（数据进入系统的顺序和它们产生时的顺序不一致）的方式将数据发送到stream中进行处理。其中可以控制速度，设置每条记录间的延时等。</p>
+<p>另外有关watermark等的相关概念，可以阅读官方文档里eventtime部分<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.4/dev/event_timestamps_watermarks.html" target="_blank" rel="noopener">Generating Timestamps / Watermarks</a></p>
+<h4 id="WateRecordFromKafkaSource-scala"><a href="#WateRecordFromKafkaSource-scala" class="headerlink" title="WateRecordFromKafkaSource.scala"></a>WateRecordFromKafkaSource.scala</h4><p>这是自己实现的一个连接Kafka队列的source，事实上官方API已经提供了对 Kafka的支持。</p>
+<p>主要做的就是使用了Kafkaconsumer的java API，不断从一个已知队列获取数据，放入sourcecontext。</p>
+<h3 id="sinks"><a href="#sinks" class="headerlink" title="sinks"></a>sinks</h3><p>sinks确定处理完的数据被放到何处，官方API的支持有Apache Kafka、Apache Cassandra、Amazon Kinesis Streams、Elasticsearch、Hadoop FileSystem、RabbitMQ、Apache NiFi、Twitter Streaming API等等。</p>
+<p>sink在这个版本中继承自RichSinkFunction等，主要实现的方法有：open和invoke。其中open在开始时被调用一次，invoke对每次处理完的数据逐个调用。</p>
+<p>添加sink(scala):</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filteredData.addSink(<span class="keyword">new</span> <span class="type">SearchInSink</span>())</span><br></pre></td></tr></table></figure>
+<h4 id="ElasticsearchUpsertSink-scala"><a href="#ElasticsearchUpsertSink-scala" class="headerlink" title="ElasticsearchUpsertSink.scala"></a>ElasticsearchUpsertSink.scala</h4><p>将处理好的数据放入es，即可视化展示</p>
+<h4 id="PutHbaseSink-scala-amp-amp-PutOutHBaseSink-scala"><a href="#PutHbaseSink-scala-amp-amp-PutOutHBaseSink-scala" class="headerlink" title="PutHbaseSink.scala &amp;&amp; PutOutHBaseSink.scala"></a>PutHbaseSink.scala &amp;&amp; PutOutHBaseSink.scala</h4><p>这里做的是将处理过的记录放入hbase表格中，调用了hbase的java API，根据一些需求不同，有一些小的不同。</p>
+<h4 id="SearchInSink-scala"><a href="#SearchInSink-scala" class="headerlink" title="SearchInSink.scala"></a>SearchInSink.scala</h4><p>对出站数据匹配入站数据，即查找hbase中的相关记录。<br>对于流水记录的出入站匹配，路费计算部分我都是放在这里完成。可以在计算完，得到结果后再将结果输出到某个地方，意思就是，sink不仅仅只用来决定数据结果的输出，也可以进行未完成的计算。</p>
+<p>❓❓❓</p>
+<h3 id="application"><a href="#application" class="headerlink" title="application"></a>application</h3><p>介绍完成的几个小实验。这里做的都是对数据的简单filter。几乎没有用到窗口机制、table API，以及更高级的CEP、ML等等。<br>复杂功能的例子可以参阅Flink GitHub的例子<a href="https://github.com/apache/flink/tree/master/flink-examples/flink-examples-streaming" target="_blank" rel="noopener">flink-examples-streaming</a>.</p>
+<h4 id="SearchTable-scala"><a href="#SearchTable-scala" class="headerlink" title="SearchTable.scala"></a>SearchTable.scala</h4><p>这里输入的数据是入站和出站的混合，做了简单的filter后，将入站数据和出战数据分开，分别对入站数据和出站数据设置sink，将入站的数据保存在hbase中，然后出站数据会查询与自己对应的入站数据。</p>
+<p>filter (Java)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DataStream&lt;WasteRecord&gt; startRides= rides.filter(<span class="keyword">new</span> FilterFunction&lt;WasteRecord&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">filter</span><span class="params">(WasteRecord x)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> x.isStart();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>路径匹配，路费计算没有放在这里，而是放在sink中。</p>
+<h4 id="TotalWaste-scala"><a href="#TotalWaste-scala" class="headerlink" title="TotalWaste.scala"></a>TotalWaste.scala</h4><p>这里做的是简单的模拟数据流动的过程，从单个文件读数据，即source是WasteRecordSource，不断放入es的过程。</p>
+<h4 id="TotalWasteFromKafka-scala"><a href="#TotalWasteFromKafka-scala" class="headerlink" title="TotalWasteFromKafka.scala"></a>TotalWasteFromKafka.scala</h4><p>这里做的也是简单的模拟数据流动的过程，但是是从Kafka对了读数据，即source是WasteRecordFromKafkaSource，不断放入es的过程。</p>
+<h4 id="TotalaWasteSlidingWindow-scala"><a href="#TotalaWasteSlidingWindow-scala" class="headerlink" title="TotalaWasteSlidingWindow.scala"></a>TotalaWasteSlidingWindow.scala</h4></div><div class="tags"><a href="/tags/项目纪要/">项目纪要</a></div><div class="post-nav"><a class="pre" href="/2018/06/20/Data-Processing-for-Shanghai-Stock-Exchange/">上证所交易数据处理</a><a class="next" href="/2018/05/01/hello-world/">开篇</a></div><div id="container"></div><link rel="stylesheet" href="/css/default.css?v=0.0.0"><script src="/js/gitment.browser.js?v=0.0.0"></script><script>var gitment = new Gitment({
+  owner: 'caochun',
+  repo: 'comments-cvicse',
+  oauth: {
+    client_id: '502baa5b22416eebf178',
+    client_secret: 'dede4f9ce1c22f8333524381b1d23895da54e660',
+  },
+})
+gitment.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://cvicse.njuics.cn"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/项目纪要/" style="font-size: 15px;">项目纪要</a> <a href="/tags/学习笔记/" style="font-size: 15px;">学习笔记</a> <a href="/tags/个人小结/" style="font-size: 15px;">个人小结</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/27/Product-classification/">Product-classification</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/07/Graph-Mining/">基于机器学习的质监预测技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/26/Data-Explaination/">质监数据说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/week-summary-suchuan/">南京大学学习周报-苏川</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/24/week-summary-pcq/">图数据库Neo4j学习总结-彭长青</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/23/First-Using-GitAndGithub/">Git与GitHub入门教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/21/Graph-based-Enterprise-Portrait/">基于图数据库的企业画像</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/20/Data-Processing-for-Shanghai-Stock-Exchange/">上证所交易数据处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/10/Real-Time-Tolling/">高速计费实时数据处理框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/01/hello-world/">开篇</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">NJUCS-CVICSE.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
