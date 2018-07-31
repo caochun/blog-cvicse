@@ -1,7 +1,9 @@
 ---
-title: Product-classification
+title: 网络中的节点分类
 date: 2018-07-27 22:08:19
 tags:
+description: 尝试对现有质监数据中的节点进行分类。
+
 ---
 
 # 异质网络中的节点分类
